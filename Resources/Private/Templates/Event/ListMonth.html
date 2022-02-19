@@ -1,0 +1,158 @@
+{namespace agenda=FKU\FkuAgenda\ViewHelpers}
+
+<f:layout name="Default" />
+
+<f:section name="main">
+
+<f:if condition="{layout}=='FkuAktuell'">
+
+	<f:comment> LAYOUT FÜR FKU AKTUELL </f:comment>
+	<f:then>
+		<h1>Monatsprogramm FKU aktuell {monatsnamen.{month}} {year}</h1>
+
+		<div class="row">
+			<div class="col-sm-9 col-12">
+                <ul class="nav nav-pills mb-4">
+                    <li role="presentation">
+                        <f:link.action action="listMonth" arguments="{month:month,year:year}" additionalAttributes="{title:'Zur normalen Monatsansicht'}">
+                        	<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-223-chevron-left.svg#glyphicons-basic"/></svg>
+							Normalansicht
+                        </f:link.action>
+                    </li>
+                </ul>
+			</div>
+			<div class="col-sm-3 col-12 d-xl-none">
+            	<f:render partial="Pagination/PaginationYear" arguments="{pagination:pagination}" />
+			</div>
+        </div>
+        <div class="row">
+			<div class="col-12 col-xl-10">
+            	<f:render partial="Pagination/PaginationMonth" arguments="{pagination:pagination}" />
+            </div>
+            <div class="col-lg-2 d-none d-xl-inline">
+            	<f:render partial="Pagination/PaginationYear" arguments="{pagination:pagination}" />
+            </div>
+		</div>
+
+		<br clear="all" />
+	</f:then>
+
+	<f:comment> LAYOUT FÜR NORMALE MONATSAGENDA </f:comment>
+	<f:else>
+		<h1>Agenda {monatsnamen.{month}} {year}</h1>
+		<f:if condition="{limitation}">
+			<h2>
+				<f:for each="{limitation}" iteration="it" as="cat">
+					<f:if condition="{it.isFirst}">Kategorie<f:if condition="{it.total}>1">n</f:if> </f:if>
+					{cat.title}<f:if condition="{it.isLast}"><f:else>, </f:else></f:if>
+				</f:for>
+			</h2>
+			<div class="mb-3"><f:link.action action="listMonth" arguments="{month:month,year:year}">Alle Kategorien anzeigen</f:link.action></div>
+		</f:if>
+
+        <f:flashMessages as="flashMessages">
+            <f:render partial="Alert" arguments="{flashMessages:flashMessages}" />
+        </f:flashMessages>
+
+		<div class="row">
+			<div class="col-sm-9 col-12">
+				<f:render section="links" arguments="{_all}" />
+			</div>
+			<div class="col-sm-3 col-12 d-xl-none">
+            	<f:render partial="Pagination/PaginationYear" arguments="{pagination:pagination}" />
+			</div>
+        </div>
+        <div class="row">
+			<div class="col-12 col-xl-10">
+            	<f:render partial="Pagination/PaginationMonth" arguments="{pagination:pagination}" />
+            </div>
+            <div class="col-lg-2 d-none d-xl-inline">
+	            <f:render partial="Pagination/PaginationYear" arguments="{pagination:pagination}" />
+            </div>
+		</div>
+				
+		<br clear="all" />
+	</f:else>
+</f:if>
+
+<f:if condition="{events}">
+	<f:then>
+		<f:if condition="{layout}=='FkuAktuell'">
+			<f:then>
+				<f:render partial="Event/ListFkuAktuell" arguments="{events:events,month:month,settings:settings}" />
+			</f:then>
+			<f:else>
+				<div class="d-none d-sm-block">
+					<f:render partial="Event/ListCombinedRows" arguments="{events:events,settings:settings}" />
+				</div>
+				<div class="d-block d-sm-none">
+					<f:render partial="Event/ListSmall" arguments="{events:events,settings:settings}" />
+				</div>
+			</f:else>
+		</f:if>
+	</f:then>
+	
+	<f:else>
+		<div class="alert alert-info">
+			<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-636-circle-info.svg#glyphicons-basic"/></svg>
+            In diesem Monat gibt es keine Anlässe<f:if condition="{limitation}"> der gewählten Kategorie</f:if>.
+		</div>
+	</f:else>
+</f:if>
+
+<f:if condition="{settings.layout}!='FkuAktuell'">
+	<f:render section="links" />
+</f:if>
+
+</f:section>
+
+
+<f:section name="links">
+    <ul class="nav nav-pills mb-4">
+        <f:security.ifHasRole role="Administrator">
+            <f:then>
+                <li class="nav-item">
+                    <f:link.action action="search" arguments="{back:'listMonth'}" additionalAttributes="{title:'Suchformular'}" pageUid="{settings.adminSearchViewPid->f:or(alternative:settings.monthViewPid)}" class="nav-link">
+                        <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-28-search.svg#glyphicons-basic"/></svg> Suchformular
+                    </f:link.action>
+                </li>
+            </f:then>
+            <f:else>
+                <li class="nav-item">
+                    <f:link.action action="search" arguments="{back:'listMonth'}" additionalAttributes="{title:'Suchformular'}" pageUid="{settings.monthViewPid}" class="nav-link">
+                        <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-28-search.svg#glyphicons-basic"/></svg> Suchformular
+                    </f:link.action>
+                </li>
+            </f:else>
+        </f:security.ifHasRole>
+        <f:security.ifHasRole role="Standard">
+            <li class="nav-item">
+                <f:link.action action="listRoomAllocation" arguments="{month:month,year:year}" pageUid="{settings.roomViewPid}" additionalAttributes="{title:'Belegungsplan dieses Monats anzeigen'}" class="nav-link">
+                    <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-120-table.svg#glyphicons-basic"/></svg> Belegungsplan
+                </f:link.action>
+            </li>
+        </f:security.ifHasRole>
+        <f:security.ifHasRole role="Administrator">
+            <li class="nav-item dropdown">
+                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-137-cogwheel.svg#glyphicons-basic"/></svg>
+                    Admin-Optionen
+                </a>
+                <div class="dropdown-menu">
+                    <f:link.action action="listMonthEdit" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Agenda-Adminitrationsansicht'}" class="dropdown-item">
+                        Admin-Ansicht
+                    </f:link.action>
+                    <f:link.action action="listMonth" arguments="{layout:'FkuAktuell',month:month,year:year}" additionalAttributes="{title:'Kalender-Ansicht für FKU aktuell'}" class="dropdown-item">
+                        FKU-aktuell-Ansicht
+                    </f:link.action>
+                    <f:link.action action="new" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Neuen Einzel-Anlass erfassen'}" class="dropdown-item">
+                        Neuer Anlass
+                    </f:link.action>
+                    <f:link.action action="newSeries" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Neue Datumsserie eines Anlasses erfassen'}" class="dropdown-item">
+                        Neue Anlass-Serie
+                    </f:link.action>
+                </div>
+            </li>
+        </f:security.ifHasRole>
+    </ul>
+</f:section>

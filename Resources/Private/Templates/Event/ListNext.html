@@ -1,0 +1,20 @@
+<f:layout name="Default" />
+<f:section name="main">
+
+<f:if condition="{settings.textBefore}"><f:format.html>{settings.textBefore}</f:format.html></f:if>
+
+<f:for each="{events}" as="event">
+    <h3><f:render partial="Event/DateAndTime" arguments="{event:event}" /></h3>
+    <h4><f:render partial="Event/TitleWithLink" arguments="{event:event,title:event.descriptionFirstLine,settings:settings}" /></h4>
+    <f:format.nl2br>{event.descriptionRest}</f:format.nl2br>
+    <f:render partial="Event/Attachments" arguments="{event:event}" />
+    <hr />
+</f:for>
+
+<f:if condition="{settings.showCategoryMonthListLink}">
+	<p>Weitere Daten in der <f:link.action action="listMonth" pluginName="Month" arguments="{category:settings.showCategory}" pageUid="{settings.monthlyListPid}">Agenda</f:link.action></p>
+</f:if>
+
+<f:if condition="{settings.textAfter}"><f:format.html>{settings.textAfter}</f:format.html></f:if>
+
+</f:section>

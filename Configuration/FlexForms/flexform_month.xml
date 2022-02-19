@@ -1,0 +1,118 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<sheets>
+		<sDEF>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Settings</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.layout>
+						<TCEforms>
+							<label>Layout</label>
+							<config>
+								<type>select</type>
+								<renderType>selectSingle</renderType>
+								<items type="array">
+									<numIndex index="1" type="array">
+										<numIndex index="0">Default</numIndex>
+										<numIndex index="1">Default</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">FKU aktuell</numIndex>
+										<numIndex index="1">FkuAktuell</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.layout>
+					<settings.showAllCategories>
+						<TCEforms>
+							<label>Show events of all categories</label>
+							<config>
+								<type>check</type>
+								<renderType>checkboxToggle</renderType>
+							</config>
+						</TCEforms>
+					</settings.showAllCategories>
+					<settings.showCategory>
+						<TCEforms>
+							<label>Event categories to be shown (if not all)</label>
+							<config>
+								<type>select</type>
+								<renderType>selectMultipleSideBySide</renderType>
+								<foreign_table>tx_fkuagenda_domain_model_category</foreign_table>
+								<size>5</size>
+								<autoSizeMax>20</autoSizeMax>
+								<minitems>0</minitems>
+							</config>
+						</TCEforms>
+					</settings.showCategory>
+					<settings.showVisibility>
+						<TCEforms>
+							<label>Event visibility type to be shown</label>
+							<config>
+								<type>select</type>
+								<renderType>selectCheckBox</renderType>
+								<foreign_table>tx_fkuagenda_domain_model_visibilitycategory</foreign_table>
+								<size>5</size>
+								<autoSizeMax>20</autoSizeMax>
+								<minitems>1</minitems>
+								<maxitems>5</maxitems>
+							</config>
+						</TCEforms>
+					</settings.showVisibility>
+					<settings.showCategoryDetailLink>
+						<TCEforms>
+							<label>Show link to category detail page</label>
+							<config>
+								<type>check</type>
+								<renderType>checkboxToggle</renderType>
+							</config>
+						</TCEforms>
+					</settings.showCategoryDetailLink>
+					<settings.preacher>
+						<TCEforms>
+							<label>Remove name of preacher</label>
+							<config>
+								<type>check</type>
+								<renderType>checkboxToggle</renderType>
+							</config>
+						</TCEforms>
+					</settings.preacher>
+					<settings.monthlyListPid>
+						<TCEforms>
+							<label>Monthly view page</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<size>1</size>
+								<maxitems>1</maxitems>
+								<minitems>0</minitems>
+								<show_thumbs>1</show_thumbs>
+							</config>
+						</TCEforms>
+					</settings.monthlyListPid>
+					<settings.editPid>
+						<TCEforms>
+							<label>Admin/edit page</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<size>1</size>
+								<maxitems>1</maxitems>
+								<minitems>0</minitems>
+								<show_thumbs>1</show_thumbs>
+							</config>
+						</TCEforms>
+					</settings.editPid>
+				</el>
+			</ROOT>
+		</sDEF>
+	</sheets>
+</T3DataStructure>

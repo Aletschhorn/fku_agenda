@@ -1,0 +1,7 @@
+<ul class="pagination">
+    <f:for each="{pagination.year}" as="link">
+        <li class="page-item {link.class}">
+            <f:link.action arguments="{link.arguments}" class="page-link">{link.label}</f:link.action>
+        </li>
+    </f:for>
+</ul>

@@ -1,0 +1,74 @@
+{namespace agenda=FKU\FkuAgenda\ViewHelpers}
+
+<table class="table">
+	<tr>
+		<th scope="col">Datum</th>
+		<th scope="col"></th>
+		<th scope="col">Zeit</th>
+		<th scope="col">Anlass</th>
+	</tr>
+	<agenda:groupedByDay each="{events}" as="eventsDay">
+		<f:for each="{eventsDay}" as="event" iteration="iteration">
+			<tr>
+				<f:if condition="{iteration.isFirst}">
+					<agenda:tdRowspan array="{eventsDay}">
+						<f:if condition="{event.severalDays}">
+							<f:then>
+								{event.eventStart->agenda:date(format:'%A')->f:format.crop(maxCharacters:2,append:'')} &ndash; {event.eventEnd->agenda:date(format:'%A')->f:format.crop(maxCharacters:2,append:'')}
+							</f:then>
+							<f:else>
+								<f:if condition="{event.eventStartWeekdayCode}==0">
+									<f:then>
+										<b>{event.eventStart->agenda:date(format:'%A')}</b>
+									</f:then>
+									<f:else>
+										{event.eventStart->agenda:date(format:'%A')}
+									</f:else>
+								</f:if>
+							</f:else>
+						</f:if>
+					</agenda:tdRowspan>
+					<agenda:tdRowspan array="{eventsDay}">
+						<f:if condition="{event.eventStartWeekdayCode}==0">
+							<f:then>
+								<b>
+									{event.eventStart->f:format.date(format:'j.')}<f:if condition="{event.eventStart->f:format.date(format:'n')}!={month}">{event.eventStart->f:format.date(format:'n.')}</f:if>
+									<f:if condition="{event.severalDays}"> &ndash; {event.eventEnd->f:format.date(format:'j.')}<f:if condition="{event.eventEnd->f:format.date(format:'n')}!={month}">{event.eventEnd->f:format.date(format:'n.')}</f:if></f:if>
+								</b>
+							</f:then>
+							<f:else>
+								{event.eventStart->f:format.date(format:'j.')}<f:if condition="{event.eventStart->f:format.date(format:'n')}!={month}">{event.eventStart->f:format.date(format:'n.')}</f:if>
+								<f:if condition="{event.severalDays}"> &ndash; {event.eventEnd->f:format.date(format:'j.')}<f:if condition="{event.eventEnd->f:format.date(format:'n')}!={month}">{event.eventEnd->f:format.date(format:'n.')}</f:if></f:if>
+							</f:else>
+						</f:if>
+					</agenda:tdRowspan>
+				</f:if>
+				<td>
+					<f:if condition="{event.allDay}">
+						<f:then>&nbsp;</f:then>
+						<f:else>
+							<f:if condition="{event.eventStartWeekdayCode}==0">
+								<f:then>
+									<b>{f:format.date(date:event.eventStart,format:'H:i')}</b>
+								</f:then>
+								<f:else>
+									{f:format.date(date:event.eventStart,format:'H:i')}
+								</f:else>
+							</f:if>
+						</f:else>
+					</f:if>
+				</td>
+				<td>
+					<f:if condition="{event.eventStartWeekdayCode}==0">
+						<f:then>
+							<b><f:format.nl2br>{event.description}</f:format.nl2br></b>
+						</f:then>
+						<f:else>
+							<f:format.nl2br>{event.description}</f:format.nl2br>
+						</f:else>
+					</f:if>
+				</td>
+			</tr>
+		</f:for>
+	</agenda:groupedByDay>
+</table>

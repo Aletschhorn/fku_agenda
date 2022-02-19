@@ -1,0 +1,33 @@
+{namespace agenda=FKU\FkuAgenda\ViewHelpers}
+
+<f:layout name="Default" />
+
+<f:section name="main">
+<h1>Anlass-Serie editieren</h1>
+
+<p><b>Hinweise:</b> Bei den bestehenden Anlässen dieser Serie werden nur jene Daten überschrieben, welche in diesem Formular verändert werden. Wird eine der Angaben im Abschnitt "Serie-Angaben" verändert, so wird beim Speichern die gesamte Serie neu erstellt. Das beinhaltet das Überschreiben aller Daten der bestehenden Anlässe sowie das Hinzufügen resp. Löschen von Anlässen, falls sich die Anzahl ändert. Mit Klick auf "Serie löschen" unten rechts werden alle Anlässe dieser Serie gelöscht, auch solche in der Vergangenheit.</p>
+
+<f:flashMessages as="flashMessages">
+	<f:render partial="Alert" arguments="{flashMessages:flashMessages}" />
+</f:flashMessages>
+<f:render partial="FormErrors" arguments="{object:Series}"/>
+
+<f:form action="updateSeries" name="series" enctype="multipart/form-data" object="{series}" class="form-horizontal">
+	<f:render partial="Series/FormFields" arguments="{series:series,events:events,rooms:rooms,resources:resources,categories:categories,weekdays:weekdays,withinMonth:withinMonth,newsAdvance:newsAdvance}" />
+	<br />
+	<div class="text-right">
+		<f:link.action action="deleteSeries" arguments="{series:series}" class="btn btn-danger" additionalAttributes="{onclick: 
+'return confirm(\'Soll diese Anlass-Series und alle zugehörigen Anlässe wirklich gelöscht werden?\')'}">Serie löschen</f:link.action>&nbsp;
+		<f:if condition="{backEvent}">
+        	<f:then>
+                <f:link.action action="edit" arguments="{event:backEvent}" class="btn btn-outline-dark">Abbrechen</f:link.action>&nbsp;
+            </f:then>
+            <f:else>
+                <f:link.action action="listMonthEdit" class="btn btn-outline-dark">Abbrechen</f:link.action>&nbsp;
+        	</f:else>
+        </f:if>
+		<input type="reset" value="Zurücksetzen" class="btn btn-outline-dark" />&nbsp;
+		<f:form.submit value="Speichern" class="btn btn-primary" />
+	</div>
+</f:form>
+</f:section>

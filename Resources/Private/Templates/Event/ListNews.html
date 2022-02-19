@@ -1,0 +1,31 @@
+{namespace agenda=FKU\FkuAgenda\ViewHelpers}
+
+<f:layout name="Default" />
+<f:section name="main">
+
+<f:if condition="{events}">
+	<f:then>
+		<f:for each="{events}" as="event" iteration="iteration">
+			<div class="frame rulerafter">
+				<h3><f:render partial="Event/DateAndTime" arguments="{event:event}" /></h3>
+				<f:if condition="{event.newsText}">
+					<f:then>
+						<h4><f:render partial="Event/TitleWithLink" arguments="{event:event,title:event.newsText,settings:settings}" /></h4>
+					</f:then>
+					<f:else>
+						<h4><f:render partial="Event/TitleWithLink" arguments="{event:event,title:event.descriptionFirstLine,settings:settings}" /></h4>
+						<p>
+							<f:format.nl2br>{event.descriptionRest}</f:format.nl2br>
+							<f:render partial="Event/Attachments" arguments="{event:event}" />
+						</p>
+					</f:else>
+				</f:if>
+			</div>
+		</f:for>
+	</f:then>
+	<f:else>
+		<p>Keine Ankündigungen für besondere Anlässe vorhanden.</p>
+	</f:else>
+</f:if>
+
+</f:section>

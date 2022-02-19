@@ -1,0 +1,16 @@
+{namespace agenda=FKU\FkuAgenda\ViewHelpers}
+
+<f:layout name="Default" />
+
+<f:section name="main">
+<f:spaceless>
+	<table class="table table-sm">
+		<f:for each="{categories}" as="category">
+			<tr>
+				<td>{category.acronym}</td>
+				<td>{category.title}</td>
+			</tr>
+		</f:for>
+	</table>
+</f:spaceless>
+</f:section>

@@ -1,0 +1,11 @@
+<f:layout name="Ics" />
+<f:section name="main">
+BEGIN:VEVENT
+UID:{event.uid}@fku.ch
+DTSTART;{prefix}:{begin}
+DTEND;{prefix}:{end}
+SUMMARY:{event.descriptionFirstLine}
+<f:if condition="{event.descriptionRest}">DESCRIPTION:{event.descriptionRest}</f:if>
+LOCATION:FKU
+END:VEVENT
+</f:section>

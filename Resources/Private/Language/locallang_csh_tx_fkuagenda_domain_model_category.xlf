@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-02-24T22:11:50Z" product-name="fku_agenda">
+		<header/>
+		<body>
+
+			<trans-unit id="title.description">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="acronym.description">
+				<source>acronym</source>
+			</trans-unit>
+			<trans-unit id="duration.description">
+				<source>duration</source>
+			</trans-unit>
+			<trans-unit id="details_pid.description">
+				<source>details_pid</source>
+			</trans-unit>
+			<trans-unit id="hide_in_list.description">
+				<source>hide_in_list</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

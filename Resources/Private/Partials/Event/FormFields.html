@@ -1,0 +1,144 @@
+{namespace agenda=FKU\FkuAgenda\ViewHelpers}
+
+<div class="row">
+	<div class="col-md-6 col-12">
+		<h3>Anlass-Details</h3>
+        <div class="row form-group">
+            <label for="eventStartDate" class="col-sm-3 col-12 col-form-label">
+                <span data-toggle="tooltip" data-placement="bottom" title="Wird Anfangs- und Endzeit leer gelassen, werden sie auf 00:00 gesetzt. Fehlt Enddatum oder -zeit, werden diese auf die gleichen Werte wie Anfangsdatum und -zeit verwendet. In der Agenda wird nur dann Anfangs- und Endzeit angezeigt, wenn sie unterschiedlich sind (oder das Datum unterschiedlich ist). Wenn gar keine Zeit angezeigt werden soll, muss Dauer = Ganztägig sein."><svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-635-circle-question.svg#glyphicons-basic"/></svg></span>&nbsp;
+                Beginn
+            </label>
+            <div class="col-sm-4 col-6">
+                <f:form.textfield property="eventStartDate" value="{event.eventStart->f:format.date(format:'d.m.Y')}" class="form-control" errorClass="has-error" placeholder="TT.MM.JJ" />
+            </div>
+            <div class="col-sm-4 col-6">
+                <f:form.textfield property="eventStartTime" id="eventStartTime" value="{event.eventStart->f:format.date(format:'H.i')}" disabled="{f:if(condition:'{event.allDay}>0',then:'true',else:NULL)}" class="form-control" placeholder="HH.MM" />
+            </div>
+        </div>
+        <div class="row form-group">
+            <label for="eventEndDate" class="col-sm-3 col-12 col-form-label">Ende</label>
+            <div class="col-sm-4 col-6">
+                <f:form.textfield property="eventEndDate" name="eventEndDate" value="{event.eventEnd->f:format.date(format:'d.m.Y')}" class="form-control" placeholder="TT.MM.JJ" />
+            </div>
+            <div class="col-sm-4 col-6">
+                <f:form.textfield property="eventEndTime" name="eventEndTime" id="eventEndTime" value="{event.eventEnd->f:format.date(format:'H.i')}" disabled="{f:if(condition:'{event.allDay}>0',then:'true',else:NULL)}" class="form-control" placeholder="HH.MM" />
+            </div>
+        </div>
+        <div class="row form-group">
+            <label for="allDay" class="col-sm-3 col-4 col-form-label">Dauer</label>
+            <div class="col-sm-8 col-8">
+                <f:alias map="{allDayValues: {0:'Gemäss Zeiten', 1:'Ganztägig', 2:'Abends'}}">
+                    <f:form.select property="allDay" id="allDay" options="{allDayValues}" class="form-control" />
+                </f:alias>
+            </div>
+        </div>
+        <script language="javascript">
+            $( "#allDay" ).change(function() {
+                if (document.getElementById('allDay').value == 0) {
+                    document.getElementById('eventStartTime').disabled = false;
+                    document.getElementById('eventEndTime').disabled = false;
+                } else {
+                    document.getElementById('eventStartTime').disabled = true;
+                    document.getElementById('eventEndTime').disabled = true;
+                }
+            });
+        </script>
+        <div class="row form-group">
+            <label for="description" class="col-sm-3 col-4 col-form-label">Beschreibung</label>
+            <div class="col-8">
+                <f:form.textarea property="description" rows="6" class="form-control" />
+            </div>
+        </div>
+        <div class="row form-group">
+            <label for="category" class="col-sm-3 col-4 col-form-label">Kategorie</label>
+            <div class="col-8">
+                <f:form.select property="category" options="{categories}" optionLabelField="title" class="form-control" />
+            </div>
+        </div>
+        <fieldset class="row form-group">
+        	<legend class="col-form-label col-sm-3 col-4 float-left pt-0">Sichtbarkeit</legend>
+            <div class="col-8">
+            	<div class="form-check">
+                	<f:form.radio property="visible" id="visible1" checked="{event.visible.uid}==1" value="1" class="form-check-input" />
+                    <label class="form-check-label" for="visible1">Öffentlich</label>
+                </div>
+                <div class="form-check">
+                	<f:form.radio property="visible" id="visible2" checked="{event.visible.uid}==2" value="2" class="form-check-input" />
+                    <label class="form-check-label" for="visible2">Intern</label>
+                </div>
+                <div class="form-check">
+                	<f:form.radio property="visible" id="visible3" checked="{event.visible.uid}==3" value="3" class="form-check-input" />
+                    <label class="form-check-label" for="visible3">Admin</label>
+                </div>
+            </div>
+        </fieldset>
+        <div class="row form-group">
+            <label for="link" class="col-sm-3 col-4 col-form-label">Internet-Link</label>
+            <div class="col-8">
+                <f:form.textfield property="link" class="form-control" placeholder="www.beispiel.ch oder Seiten-ID" />
+            </div>
+        </div>
+        <div class="row form-group">
+            <label for="relatedDocuments" class="col-sm-3 col-4 col-form-label">Dokumente</label>
+            <div class="col-8">
+                <div class="form-control-static">Anhang hinzufügen:</div>
+                <f:form.upload name="newDocument" class="form-control-file" /><br />
+                <f:if condition="{event.relatedDocuments}">
+                    <div class="form-control-static">Bestehende Anhänge:</div>
+                    <ul>
+                        <f:for each="{event.relatedDocuments}" as="file">
+                            <li><a href="{file.originalResource.publicUrl}" target="_blank">{file.originalResource.originalFile.name}</a> &nbsp; <span title="Datei zum Löschen markieren"><f:form.checkbox name="delDocument[{file.uid}]" value="1" /> <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-17-bin.svg#glyphicons-basic"/></svg></span></li>
+                        </f:for>
+                    </ul>
+                </f:if>
+            </div>
+        </div>
+	</div>
+
+	<div class="col-md-6 col-12">
+		<h3>Anlass als News auf Homepage anzeigen</h3>
+        <div class="row form-group">
+            <label for="newsStartDate" class="col-sm-2 col-4 col-form-label">
+                <span data-toggle="tooltip" data-placement="bottom" title="Wird das Anfangsdatum leer gelassen, gibt es keinen News-Eintrag. Fehlt das Enddatum, werden die End-Werte des Anlasses verwendet."><svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-635-circle-question.svg#glyphicons-basic"/></svg></span>&nbsp;
+                Von
+            </label>
+            <div class="col-sm-3 col-8">
+                <f:form.textfield property="newsStartDate" value="{event.newsStart->f:format.date(format:'d.m.Y')}" class="form-control" placeholder="TT.MM.JJ" />
+            </div>
+            <label for="newsEndDate" class="col-sm-2 col-4 col-form-label">bis</label>
+            <div class="col-sm-3 col-8">
+                <f:form.textfield property="newsEndDate" value="{event.newsEnd->f:format.date(format:'d.m.Y')}" class="form-control" placeholder="TT.MM.JJ" />
+            </div>
+        </div>
+        <div class="row form-group">
+            <label for="newsText" class="col-sm-2 col-12 col-form-label">
+                <span data-toggle="tooltip" data-placement="bottom" title="Wird kein News-Text eingegeben, erscheint im News-Eintrag die Anlass-Beschreibung."><svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-635-circle-question.svg#glyphicons-basic"/></svg></span>&nbsp;
+                Text
+            </label>
+            <div class="col-sm-8 col-12">
+                <f:form.textfield property="newsText" class="form-control" />
+            </div>
+        </div>
+		<br />
+
+		<h3>Administrative Angaben</h3>
+        <fieldset class="row form-group">
+        	<legend class="col-form-label col-sm-2 col-4 float-left pt-0">Räume</legend>
+            <div class="col-sm-10 col-8">
+                <f:for each="{rooms}" as="room">
+                    <div class="form-check">
+                    	<agenda:inArray needle="{room.uid}" haystack="{event.roomArray}">
+                        	<f:then>
+		                        <f:form.checkbox property="rooms" id="room{room.uid}" value="{room.uid}" multiple="true" checked="1" class="form-check-input" />
+                            </f:then>
+                        	<f:else>
+		                        <f:form.checkbox property="rooms" id="room{room.uid}" value="{room.uid}" multiple="true" checked="0" class="form-check-input" />
+                            </f:else>
+                        </agenda:inArray>
+                        <label class="form-check-label" for="room{room.uid}">{room.title}</label>
+                    </div>
+                </f:for>
+            </div>
+        </fieldset>
+	</div>
+</div>

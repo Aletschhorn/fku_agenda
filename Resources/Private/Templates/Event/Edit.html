@@ -1,0 +1,34 @@
+{namespace agenda=FKU\FkuAgenda\ViewHelpers}
+
+<f:layout name="Default" />
+
+<f:section name="main">
+<h1>Anlass editieren</h1>
+
+<f:flashMessages as="flashMessages">
+	<f:render partial="Alert" arguments="{flashMessages:flashMessages}" />
+</f:flashMessages>
+<f:render partial="FormErrors" arguments="{object:Event}"/>
+
+<f:form action="update" name="event" enctype="multipart/form-data" object="{event}">
+	<f:if condition="{event.series}">
+        <div class="alert alert-info" role="alert">
+            <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-636-circle-info.svg#glyphicons-basic"/></svg>
+            <b>Dieser Anlass gehört zu einer <f:if condition="{event.series.interval}==1" then="monatlichen" else="wöchentlichen" /> Anlass-Serie</b> vom {event.series.dateStart->f:format.date(format:'d.m.Y')} bis {event.series.dateEnd->f:format.date(format:'d.m.Y')} &nbsp; &nbsp; 
+            <f:link.action action="editSeries" arguments="{series:event.series,backEvent:event}">
+            	<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-31-pencil.svg#glyphicons-basic"/></svg>
+                Serie ändern
+            </f:link.action>
+        </div>
+    </f:if>
+	<f:render partial="Event/FormFields" arguments="{event:event,rooms:rooms,resources:resources,categories:categories}" />
+	<br />
+	<div class="text-right">
+		<f:link.action action="delete" arguments="{event:event}" class="btn btn-danger" additionalAttributes="{onclick: 
+'return confirm(\'Soll dieser Anlass wirklich gelöscht werden?\')'}">Anlass löschen</f:link.action>&nbsp;
+		<f:link.action action="listMonthEdit" arguments="{month:'{f:format.date(date:event.eventStart,format:\'n\')}',year:'{f:format.date(date:event.eventStart,format:\'Y\')}'}" class="btn btn-outline-dark">Abbrechen</f:link.action>&nbsp;
+		<input type="reset" value="Zurücksetzen" class="btn btn-outline-dark" />&nbsp;
+		<f:form.submit value="Speichern" class="btn btn-primary" />
+	</div>
+</f:form>
+</f:section>

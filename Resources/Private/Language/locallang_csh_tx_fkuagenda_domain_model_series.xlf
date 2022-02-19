@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-02-24T22:11:50Z" product-name="fku_agenda">
+		<header/>
+		<body>
+
+			<trans-unit id="description.description">
+				<source>description</source>
+			</trans-unit>
+			<trans-unit id="date_start.description">
+				<source>dateStart</source>
+			</trans-unit>
+			<trans-unit id="date_end.description">
+				<source>dateEnd</source>
+			</trans-unit>
+			<trans-unit id="time_start.description">
+				<source>timeStart</source>
+			</trans-unit>
+			<trans-unit id="time_end.description">
+				<source>timeEnd</source>
+			</trans-unit>
+			<trans-unit id="interval.description">
+				<source>interval</source>
+			</trans-unit>
+			<trans-unit id="weekday_weekly.description">
+				<source>weekdayWeekly</source>
+			</trans-unit>
+			<trans-unit id="weekday_monthly.description">
+				<source>weekdayMonthly</source>
+			</trans-unit>
+			<trans-unit id="weekday_option.description">
+				<source>weekdaOptiony</source>
+			</trans-unit>
+			<trans-unit id="all_day.description">
+				<source>allDay</source>
+			</trans-unit>
+			<trans-unit id="link.description">
+				<source>link</source>
+			</trans-unit>
+			<trans-unit id="related_documents.description">
+				<source>relatedDocuments</source>
+			</trans-unit>
+			<trans-unit id="news_option.description">
+				<source>newsOption</source>
+			</trans-unit>
+			<trans-unit id="news_text.description">
+				<source>newsText</source>
+			</trans-unit>
+			<trans-unit id="rooms.description">
+				<source>rooms</source>
+			</trans-unit>
+			<trans-unit id="category.description">
+				<source>category</source>
+			</trans-unit>
+			<trans-unit id="visible.description">
+				<source>visible</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

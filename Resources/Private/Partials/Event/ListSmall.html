@@ -1,0 +1,74 @@
+{namespace agenda=FKU\FkuAgenda\ViewHelpers}
+
+<b>Datum, Zeit<br />Anlass</b>
+<hr />
+<f:for each="{events}" as="event" iteration="iteration">
+	<div class="{f:if(condition:'{event.eventStartWeekdayCode}==0',then:'bg-info')}">
+		<f:if condition="{event.severalDays}">
+			<f:then>
+				<f:format.date format="j.n.">{event.eventStart}</f:format.date> &ndash; <f:format.date format="j.n.">{event.eventEnd}</f:format.date>,
+			</f:then>
+			<f:else>
+				{event.eventStart->agenda:date(format:'%A')->f:format.crop(maxCharacters:2,append:'')}, <f:format.date format="j.n.">{event.eventStart}</f:format.date>,
+			</f:else>
+		</f:if>
+		<f:if condition="{event.allDay}">
+			<f:then>&nbsp;</f:then>
+			<f:else>
+				{f:format.date(date:event.eventStart,format:'H:i')}<f:if condition="{event.eventEndTimeFormat}"> &ndash; {event.eventEndTimeFormat}</f:if>
+			</f:else>
+		</f:if>
+		<div class="float-right">
+			<f:if condition="{settings.showCategoryDetailLink}">
+				<f:if condition="{event.category.detailsPid}>0">
+					<f:link.page pageUid="{event.category.detailsPid}" additionalAttributes="{title:'Weitere Informationen'}">
+                    	<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-636-circle-info.svg#glyphicons-basic"/></svg>
+                    </f:link.page>
+				</f:if>
+			</f:if>
+
+			<f:link.action action="ics" pluginName="Ics" arguments="{event:event}" pageUid="{settings.icsPid}" pageType="{settings.icsPageType}" additionalAttributes="{title:'Anlass in eigenen Kalender übernehmen'}">
+				<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-46-calendar.svg#glyphicons-basic"/></svg>
+			</f:link.action>
+
+			<f:security.ifHasRole role="Administrator">
+				&nbsp;
+				<f:link.action action="edit" pageUid="{settings.adminViewPid}" arguments="{event:event}" additionalAttributes="{title:'Anlass editieren'}">
+					<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-31-pencil.svg#glyphicons-basic"/></svg>
+				</f:link.action>
+			</f:security.ifHasRole>
+		</div>
+		<br />
+		<f:format.nl2br>{event.description}</f:format.nl2br>
+		<f:if condition="{event.visible.title}=='Intern'">
+			<br />(nur intern angezeigter Anlass)
+		</f:if>
+		<f:if condition="{event.link}">
+			<br />
+			<f:if condition="{agenda:isNumber(value:event.link)}">
+				<f:then>
+					<span data-toggle="tooltip" data-placement="bottom" title="Internet-Seite mit weiteren Informationen">
+						<f:link.page pageUid="{event.link}">Weitere Informationen</f:link.page>
+					</span>
+				</f:then>
+				<f:else>
+					<span data-toggle="tooltip" data-placement="bottom" title="Internet-Seite mit weiteren Informationen">
+						<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-351-link.svg#glyphicons-basic"/></svg>
+						<f:link.external uri="{event.link}" target="_blank"><f:format.crop maxCharacters="40" append="...">{event.link}</f:format.crop></f:link.external>
+					</span>
+				</f:else>
+			</f:if>
+		</f:if>
+		<f:if condition="{event.relatedDocuments}">
+			<f:for each="{event.relatedDocuments}" as="file">
+				<br />
+				<a href="{file.originalResource.publicUrl}" target="_blank">
+                	><svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-37-file.svg#glyphicons-basic"/></svg>
+                    {file.originalResource.originalFile.name->f:format.crop(maxCharacters:25,append:'...')}
+                </a>
+			</f:for>
+		</f:if>
+		<br />
+	</div>
+    <hr />
+</f:for>

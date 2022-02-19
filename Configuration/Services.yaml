@@ -1,0 +1,15 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  FKU\FkuAgenda\:
+    resource: '../Classes/*'
+    exclude: '../Classes/Domain/Model/*'
+
+  FKU\FkuAgenda\Command\IcalCommand:
+    tags:
+      - name: 'console.command'
+        command: 'fku_agenda:ical'
+        description: 'Creates an .ics file of all events of a certain event category and visibility category'

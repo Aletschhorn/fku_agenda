@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-02-24T22:11:50Z" product-name="fku_agenda">
+		<header/>
+		<body>
+
+			<trans-unit id="tx_fkuagenda_domain_model_event">
+				<source>Event</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_event.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_event.event_start">
+				<source>Event Start</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_event.event_end">
+				<source>Event End</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_event.all_day">
+				<source>Duration</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_event.link">
+				<source>Link</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_event.related_documents">
+				<source>Related Documents</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_event.news_start">
+				<source>News Start</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_event.news_end">
+				<source>News End</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_event.news_text">
+				<source>News Text</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_event.rooms">
+				<source>Rooms</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_event.resources">
+				<source>Resources</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_event.category">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_event.visible">
+				<source>Visible</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_event.series">
+				<source>Related series</source>
+			</trans-unit>
+
+			<trans-unit id="tx_fkuagenda_domain_model_room">
+				<source>Room</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_room.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_room.title_short">
+				<source>Title short (4-7 characters)</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_room.title_tiny">
+				<source>Title tiny (2-3 characters)</source>
+			</trans-unit>
+
+			<trans-unit id="tx_fkuagenda_domain_model_resource">
+				<source>Resource</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_resource.title">
+				<source>Title</source>
+			</trans-unit>
+
+			<trans-unit id="tx_fkuagenda_domain_model_category">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_category.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_category.acronym">
+				<source>Acronym</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_category.duration">
+				<source>Standard duration (minutes)</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_category.details_pid">
+				<source>Page with category details</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_category.hide_in_list">
+				<source>Hide  in category selection lists</source>
+			</trans-unit>
+
+			<trans-unit id="tx_fkuagenda_domain_model_visibilitycategory">
+				<source>Visibility Category</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_visibilitycategory.title">
+				<source>Title</source>
+			</trans-unit>
+
+			<trans-unit id="tx_fkuagenda_domain_model_series">
+				<source>Series</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.date_start">
+				<source>Date Start</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.date_end">
+				<source>Date End</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.interval">
+				<source>Interval</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.weekday_weekly">
+				<source>Weekday (weekly)</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.weekday_monthly">
+				<source>Weekday (monthly)</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.weekday_option">
+				<source>Weekday Option (monthly)</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.all_day">
+				<source>Duration</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.time_start">
+				<source>Time Start</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.time_end">
+				<source>Time End</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.link">
+				<source>Link</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.related_documents">
+				<source>Related Documents</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.news_option">
+				<source>News Option</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.news_text">
+				<source>News Text</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.rooms">
+				<source>Rooms</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.category">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="tx_fkuagenda_domain_model_series.visible">
+				<source>Visible</source>
+			</trans-unit>
+
+			<trans-unit id="tab.news">
+				<source>News information</source>
+			</trans-unit>
+			<trans-unit id="tab.series">
+				<source>Series</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

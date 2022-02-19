@@ -1,0 +1,21 @@
+{namespace agenda=FKU\FkuAgenda\ViewHelpers}
+
+<f:layout name="Default" />
+
+<f:section name="main">
+<h1>Serie neuer Anlässe erstellen</h1>
+
+<f:flashMessages as="flashMessages">
+	<f:render partial="Alert" arguments="{flashMessages:flashMessages}" />
+</f:flashMessages>
+
+<f:render partial="FormErrors" arguments="{object:Series}"/>
+
+<f:form action="createSeries" enctype="multipart/form-data"  name="series" object="{series}" class="form-horizontal">
+	<f:render partial="Series/FormFields" arguments="{series:series,rooms:rooms,resources:resources,categories:categories,weekdays:weekdays,withinMonth:withinMonth,newsAdvance:newsAdvance}" />
+	<p class="text-right">
+		<f:link.action action="listMonthEdit" class="btn btn-outline-dark">Abbrechen</f:link.action>&nbsp;
+		<f:form.submit value="Speichern" class="btn btn-primary" />
+	</p>
+</f:form>
+</f:section>

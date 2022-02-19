@@ -1,0 +1,90 @@
+{namespace agenda=FKU\FkuAgenda\ViewHelpers}
+
+<table class="table">
+	<tr>
+		<th scope="col">Datum</th>
+		<th scope="col"></th>
+		<th scope="col">Zeit</th>
+		<th scope="col">Anlass</th>
+		<th>&nbsp;</th>
+	</tr>
+	<agenda:groupedByDay each="{events}" as="eventsDay">
+		<f:for each="{eventsDay}" as="event" iteration="iteration">
+			<tr class="{f:if(condition:'{event.eventStartWeekdayCode}==0',then:'table-info')}">
+				<f:if condition="{iteration.isFirst}">
+					<agenda:tdRowspan array="{eventsDay}">
+						<f:if condition="{event.severalDays}">
+							<f:then>
+								{event.eventStart->agenda:date(format:'%A')->f:format.crop(maxCharacters:2,append:'')} &ndash; {event.eventEnd->agenda:date(format:'%A')->f:format.crop(maxCharacters:2,append:'')}
+							</f:then>
+							<f:else>
+								{event.eventStart->agenda:date(format:'%A')}
+							</f:else>
+						</f:if>
+					</agenda:tdRowspan>
+					<agenda:tdRowspan array="{eventsDay}">
+						<f:format.date format="j.n.">{event.eventStart}</f:format.date>
+						<f:if condition="{event.severalDays}"> &ndash; <f:format.date format="j.n.">{event.eventEnd}</f:format.date></f:if>
+					</agenda:tdRowspan>
+				</f:if>
+				<td>
+					<f:if condition="{event.allDay}">
+						<f:then>&nbsp;</f:then>
+						<f:else>
+							{f:format.date(date:event.eventStart,format:'H:i')}
+							<f:if condition="{event.eventEndTimeFormat}"> &ndash; {f:format.date(date:event.eventEnd,format:'H:i')}</f:if>
+						</f:else>
+					</f:if>
+				</td>
+				<td>
+					<f:format.nl2br>{event.description}</f:format.nl2br>
+					<f:if condition="{event.visible.title}=='Intern'">
+						(nur intern angezeigter Anlass)
+					</f:if>
+					<f:if condition="{event.link}">
+						<br />
+						<f:if condition="{agenda:isNumber(value:event.link)}">
+							<f:then>
+                            aaa3
+								<f:link.page pageUid="{event.link}" additionalAttributes="{title:'Internet-Seite mit weiteren Informationen'}">Weitere Informationen</f:link.page>
+							</f:then>
+							<f:else>
+                            bbb3
+								<f:link.external uri="{event.link}" target="_blank" additionalAttributes="{title:'Internet-Seite mit weiteren Informationen'}"><f:format.crop maxCharacters="40" append="...">{event.link}</f:format.crop> <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-351-link.svg#glyphicons-basic"/></svg></f:link.external>
+							</f:else>
+						</f:if>
+					</f:if>
+					<f:if condition="{event.relatedDocuments}">
+						<f:for each="{event.relatedDocuments}" as="file">
+							<br />
+							<a href="{file.originalResource.publicUrl}" target="_blank">{file.originalResource.originalFile.name->f:format.crop(maxCharacters:25,append:'...')} <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-37-file.svg#glyphicons-basic"/></svg></a>
+						</f:for>
+					</f:if>
+				
+				</td>
+				
+				<td style="text-align:right">
+					<nobr>
+						<f:if condition="{settings.showCategoryDetailLink}">
+							<f:if condition="{event.category.detailsPid}>0">
+								<f:link.page pageUid="{event.category.detailsPid}" additionalAttributes="{title:'Weitere Informationen'}"><svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-636-circle-info.svg#glyphicons-basic"/></svg></f:link.page>
+								&nbsp;
+							</f:if>
+						</f:if>
+
+						<f:link.action action="ics" pluginName="Ics" arguments="{event:event}" pageUid="{settings.icsPid}" pageType="{settings.icsPageType}" additionalAttributes="{title:'Anlass in eigenen Kalender übernehmen'}">
+							<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-46-calendar.svg#glyphicons-basic"/></svg>
+						</f:link.action>
+						
+						<f:security.ifHasRole role="Administrator">
+							&nbsp;
+							<f:link.action action="edit" pageUid="{settings.adminViewPid}" arguments="{event:event}" additionalAttributes="{title:'Anlass editieren'}">
+                            	<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-31-pencil.svg#glyphicons-basic"/></svg>
+							</f:link.action>
+						</f:security.ifHasRole>
+					</nobr>
+				</td>
+			</tr>
+		</f:for>
+	</agenda:groupedByDay>
+</table>

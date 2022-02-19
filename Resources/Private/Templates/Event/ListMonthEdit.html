@@ -1,0 +1,217 @@
+{namespace agenda=FKU\FkuAgenda\ViewHelpers}
+
+<f:layout name="Default" />
+<f:section name="main">
+
+<h1>Agenda {monatsnamen.{month}} {year}: Admin-Ansicht</h1>
+
+<f:flashMessages as="flashMessages">
+	<f:render partial="Alert" arguments="{flashMessages:flashMessages}" />
+</f:flashMessages>
+
+<div class="row">
+    <div class="col-sm-9 col-12">
+        <f:render section="links" arguments="{_all}" />
+    </div>
+    <div class="col-sm-3 col-12 d-xl-none">
+    	<f:render partial="Pagination/PaginationYear" arguments="{pagination:pagination}" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-xl-10">
+        <f:render partial="Pagination/PaginationMonth" arguments="{pagination:pagination}" />
+    </div>
+    <div class="col-lg-2 d-none d-xl-inline">
+        <f:render partial="Pagination/PaginationYear" arguments="{pagination:pagination}" />
+    </div>
+</div>
+<br clear="all" />
+
+<f:if condition="{events}">
+	<f:then>
+		<div class="d-none d-sm-block">
+			<table class="table">
+				<tr>
+					<th scope="col">Datum</th>
+					<th scope="col">Zeit</th>
+					<th scope="col">Anlass</th>
+					<th scope="col">Zusatz</th>
+					<f:security.ifHasRole role="Administrator">
+						<th scope="col" class="d-none d-md-table-cell">Kategorie</th>
+						<th scope="col">Sichtbar</th>
+						<th scope="col" class="d-none d-lg-table-cell"><nobr>Als News angezeigt</nobr></th>
+						<th>&nbsp;</th>
+					</f:security.ifHasRole>				
+				</tr>
+				<agenda:groupedByDay each="{events}" as="eventsDay">
+					<f:for each="{eventsDay}" as="event" iteration="iteration">
+						<tr class="{f:if(condition:'{event.eventStartWeekdayCode}==0',then:'table-info')}">
+							<f:if condition="{iteration.isFirst}">
+								<agenda:tdRowspan array="{eventsDay}">
+									<f:if condition="{event.severalDays}">
+										<f:then>
+											<f:format.date format="j.n.">{event.eventStart}</f:format.date> &ndash; <f:format.date format="j.n.">{event.eventEnd}</f:format.date>
+										</f:then>
+										<f:else>
+											{event.eventStart->agenda:date(format:'%A')->f:format.crop(maxCharacters:2,append:'')}, <f:format.date format="j.n.">{event.eventStart}</f:format.date>
+										</f:else>
+									</f:if>
+								</agenda:tdRowspan>
+							</f:if>
+							<td>
+								<f:if condition="{event.allDay}">
+									<f:then></f:then>
+									<f:else>
+										{f:format.date(date:event.eventStart,format:'H:i')}
+										<f:if condition="{event.eventEndTimeFormat}"> &ndash; {event.eventEndTimeFormat}</f:if>
+									</f:else>
+								</f:if>
+							</td>
+							<td><f:format.nl2br>{event.description}</f:format.nl2br></td>
+							<td>
+								<f:if condition="{event.series}">
+                                	<span title="Gehört zu einer Anlass-Serie">
+	                                	<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-343-repeat.svg#glyphicons-basic"/></svg>
+                                    </span>
+                                </f:if>
+								<f:if condition="{event.link}">
+									<f:if condition="{agenda:isNumber(value:event.link)}">
+										<f:then>
+											<f:link.page pageUid="{event.link}" target="_blank" additionalAttributes="{title:'Seiten-Link: ID {event.link}'}">
+												<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-351-link.svg#glyphicons-basic"/></svg>
+											</f:link.page>
+										</f:then>
+										<f:else>
+											<f:link.external uri="{event.link}" target="_blank" additionalAttributes="{title:'Internet-Link: {event.link}'}">
+												<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-351-link.svg#glyphicons-basic"/></svg>
+											</f:link.external>
+										</f:else>
+									</f:if>
+								</f:if>
+								<f:if condition="{event.relatedDocuments}">
+									<f:for each="{event.relatedDocuments}" as="file">
+										<a href="{file.originalResource.publicUrl}" target="_blank" title="Angehängtes Dokument: {file.originalResource.originalFile.name}">
+											<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-37-file.svg#glyphicons-basic"/></svg>
+										</a>
+									</f:for>
+								</f:if>
+							</td>
+			
+							<f:security.ifHasRole role="Administrator">
+								<td class="d-none d-md-table-cell">{event.category.title}</td>
+								<td>
+									<f:if condition="{event.visible.title}=='Public'">
+										<f:then>{event.visible.title}</f:then>
+										<f:else><mark>{event.visible.title}</mark></f:else>
+									</f:if>
+								</td>
+								<td class="d-none d-lg-table-cell">
+									<f:if condition="{event.newsStart}">
+										<f:format.date format="j.n.">{event.newsStart}</f:format.date> &ndash; <f:format.date format="j.n.">{event.newsEnd}</f:format.date>
+									</f:if>
+                                    &nbsp;
+								</td>
+								<td>
+									<nobr>
+										<f:link.action action="edit" arguments="{event:event}" additionalAttributes="{title:'Anlass editieren'}">
+											<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-31-pencil.svg#glyphicons-basic"/></svg>
+										</f:link.action>
+										<f:link.action action="copy" arguments="{event:event}" additionalAttributes="{title:'Anlass kopieren'}">
+											<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-611-copy-duplicate.svg#glyphicons-basic"/></svg>
+										</f:link.action>
+										<f:link.action action="delete" arguments="{event:event,month:month,year:year}" additionalAttributes="{title:'Anlass löschen',onclick: 
+		'return confirm(\'Soll dieser Anlass wirklich gelöscht werden?\')'}">
+											<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-17-bin.svg#glyphicons-basic"/></svg>
+										</f:link.action>
+									</nobr>
+								</td>
+							</f:security.ifHasRole>				
+						</tr>
+					</f:for>
+				</agenda:groupedByDay>
+			</table>
+		</div>
+		<div class="d-block d-sm-none">
+			<b>Datum, Zeit, Sichtbar<br />Anlass</b>
+            <hr />
+			<f:for each="{events}" as="event" iteration="iteration">
+				<div class="{f:if(condition:'{event.eventStartWeekdayCode}==0',then:'bg-info')}">
+					<f:if condition="{event.severalDays}">
+						<f:then>
+							<f:format.date format="j.n.">{event.eventStart}</f:format.date> &ndash; <f:format.date format="j.n.">{event.eventEnd}</f:format.date>,
+						</f:then>
+						<f:else>
+							{event.eventStart->agenda:date(format:'%A')->f:format.crop(maxCharacters:2,append:'')}, <f:format.date format="j.n.">{event.eventStart}</f:format.date>,
+						</f:else>
+					</f:if>
+					<f:if condition="{event.allDay}">
+						<f:then>&nbsp;</f:then>
+						<f:else>
+							{f:format.date(date:event.eventStart,format:'H:i')}<f:if condition="{event.eventEndTimeFormat}"> &ndash; {event.eventEndTimeFormat}</f:if>,
+						</f:else>
+					</f:if>
+					<f:security.ifHasRole role="Administrator">
+						<f:if condition="{event.visible.title}=='Public'">
+							<f:then>{event.visible.title}</f:then>
+							<f:else><mark>{event.visible.title}</mark></f:else>
+						</f:if>
+						<div class="float-right">
+							<f:link.action action="edit" arguments="{event:event}" additionalAttributes="{title:'Anlass editieren'}">
+								<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-31-pencil.svg#glyphicons-basic"/></svg>
+							</f:link.action>
+							<f:link.action action="delete" arguments="{event:event,month:month,year:year}" additionalAttributes="{title:'Anlass löschen',onclick: 
+			'return confirm(\'Soll dieser Anlass wirklich gelöscht werden?\')'}">
+								<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-17-bin.svg#glyphicons-basic"/></svg>
+							</f:link.action>
+						</div>
+					</f:security.ifHasRole>
+					<br />
+					<f:format.nl2br>{event.description}</f:format.nl2br>
+					<br />
+				</div>
+                <hr />
+			</f:for>
+		</div>
+	</f:then>
+	<f:else>
+		<div class="alert alert-info">
+			<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-636-circle-info.svg#glyphicons-basic"/></svg>
+            In diesem Monat gibt es keine Anlässe.
+		</div>
+	</f:else>
+</f:if>
+
+<f:link.action action="new" additionalAttributes="{title:'Neuen Anlass erfassen'}">
+	<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-371-plus.svg#glyphicons-basic"/></svg> Neuer Anlass
+</f:link.action>
+
+</f:section>
+
+<f:section name="links">
+    <ul class="nav nav-pills mb-4">
+        <li class="nav-item">
+            <f:link.action action="search" arguments="{back:'listMonth'}" additionalAttributes="{title:'Suchformular'}" pageUid="{settings.adminSearchViewPid->f:or(alternative:settings.monthViewPid)}" class="nav-link">
+                <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-28-search.svg#glyphicons-basic"/></svg> Suchformular
+            </f:link.action>
+        </li>
+        <li class="nav-item">
+            <f:link.action action="listRoomAllocation" arguments="{month:month,year:year}" pageUid="{settings.roomViewPid}" additionalAttributes="{title:'Belegungsplan dieses Monats anzeigen'}" class="nav-link">
+                <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-120-table.svg#glyphicons-basic"/></svg> Belegungsplan
+            </f:link.action>
+        </li>
+        <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-371-plus.svg#glyphicons-basic"/></svg>
+                Neuer Anlass
+            </a>
+            <div class="dropdown-menu">
+                <f:link.action action="new" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Neuen Einzel-Anlass erfassen'}" class="dropdown-item">
+                    Einzelner Anlass
+                </f:link.action>
+                <f:link.action action="newSeries" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Neue Datumsserie eines Anlasses erfassen'}" class="dropdown-item">
+                    Anlass-Serie
+                </f:link.action>
+            </div>
+        </li>
+    </ul>
+</f:section>

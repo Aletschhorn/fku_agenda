@@ -1,0 +1,8 @@
+{namespace agenda=FKU\FkuAgenda\ViewHelpers}
+
+<f:if condition="{event.relatedDocuments}">
+	<f:for each="{event.relatedDocuments}" as="file">
+		<f:if condition="{event.descriptionRest}"><br /></f:if>
+		<a href="{file.originalResource.publicUrl}" target="_blank"><svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-37-file.svg#glyphicons-basic"/></svg></span> {file.originalResource.originalFile.name->f:format.crop(maxCharacters:25,append:'...')}</a>
+	</f:for>
+</f:if>

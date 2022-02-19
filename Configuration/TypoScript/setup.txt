@@ -1,0 +1,51 @@
+plugin.tx_fkuagenda {
+	view {
+		templateRootPaths.0 = {$plugin.tx_fkuagenda.view.templateRootPath}
+		partialRootPaths.0 = {$plugin.tx_fkuagenda.view.partialRootPath}
+		layoutRootPaths.0 = {$plugin.tx_fkuagenda.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = {$plugin.tx_fkuagenda.persistence.storagePid}
+	}
+	features {
+		# uncomment the following line to enable the new Property Mapper.
+		# rewrittenPropertyMapper = 1
+	}
+	settings {
+		storagePid = {$plugin.tx_fkuagenda.persistence.storagePid}
+		fileStorageUid = {$plugin.tx_fkuagenda.settings.fileStorageUid}
+		monthViewPid = {$plugin.tx_fkuagenda.settings.monthViewPid}
+		yearViewPid = {$plugin.tx_fkuagenda.settings.yearViewPid}
+		searchViewPid = {$plugin.tx_fkuagenda.settings.searchViewPid}
+		adminSearchViewPid = {$plugin.tx_fkuagenda.settings.adminSearchViewPid}
+		roomViewPid = {$plugin.tx_fkuagenda.settings.roomViewPid}
+		adminViewPid = {$plugin.tx_fkuagenda.settings.adminViewPid}
+		icsPrefix = {$plugin.tx_fkuagenda.settings.icsPrefix}
+		icsPid = {$plugin.tx_fkuagenda.settings.icsPid}
+		icsPageType = {$plugin.tx_fkuagenda.settings.icsPageType}
+		deleteCachePid = {$plugin.tx_fkuagenda.settings.deleteCachePid}
+	}
+}
+
+module.tx_fkuagenda.persistence.storagePid = {$plugin.tx_fkuagenda.persistence.storagePid}
+
+page_ics = PAGE
+page_ics {
+  typeNum = {$plugin.tx_fkuagenda.settings.icsPageType}
+  config {
+    disableAllHeaderCode = 1
+    additionalHeaders = Content-type:text/calendar
+    xhtml_cleaning = 0
+    admPanel = 0
+  }
+  10 = USER
+  10 {
+    userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+    extensionName = FkuAgenda
+    pluginName = Ics
+    vendorName = FKU
+    settings =< plugin.tx_fkuagenda.settings
+    persistence =< plugin.tx_fkuagenda.persistence
+    view =< plugin.tx_fkuagenda.view
+  }
+}

@@ -1,0 +1,11 @@
+<table class="table table-sm">
+    <f:for each="{events}" as="event" iteration="it">
+    	<f:if condition="{short}==0 or {it.index}<{limit}">
+            <tr>
+                <td>{event.eventStart->f:format.date(format:'%a')->f:format.crop(maxCharacters:2,append:'.')} {event.eventStart->f:format.date(format:'d.m.Y')}</td>
+                <td>{event.descriptionFirstLine}</td>
+                <td><f:link.action action="edit" arguments="{event:event}" target="_blank" additionalAttributes="{title:'In neuem Tab ansehen/edtieren'}"><svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-31-pencil.svg#glyphicons-basic"/></svg></f:link.action></td>
+            </tr>
+        </f:if>
+    </f:for>
+</table>

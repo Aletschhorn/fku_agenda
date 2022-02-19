@@ -1,0 +1,196 @@
+{namespace agenda=FKU\FkuAgenda\ViewHelpers}
+
+<f:layout name="Default" />
+
+<f:section name="main">
+
+<h1>Raumbelegung {monatsnamen.{month}} {year}</h1>
+
+<div class="row">
+    <div class="col-sm-9 col-12">
+        <ul class="nav nav-pills mb-4">
+            <li class="nav-item">
+                <f:link.action action="listMonth" pluginName="Month" pageUid="{settings.monthViewPid}" additionalAttributes="{title:'Monatsagenda anzeigen'}" class="nav-link">
+                    <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-115-list.svg#glyphicons-basic"/></svg> Monatsansicht
+                </f:link.action>
+            </li>
+            <f:security.ifHasRole role="Administrator">
+				<f:then>
+                    <li class="nav-item">
+                        <f:link.action action="search" pluginName="Search" arguments="{back:'listMonth'}" additionalAttributes="{title:'Suchformular'}" pageUid="{settings.adminSearchViewPid->f:or(alternative:settings.monthViewPid)}" class="nav-link">
+                            <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-28-search.svg#glyphicons-basic"/></svg> Suchformular
+                        </f:link.action>
+                    </li>
+                    <li class="nav-item">
+                        <f:link.action action="listMonthEdit" pluginName="Month" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Gehe zur Agenda-Adminitrationsansicht'}" class="nav-link">
+                            <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-52-eye.svg#glyphicons-basic"/></svg> Admin-Ansicht
+                        </f:link.action>
+                    </li>
+                    <li class="nav-item dropdown">
+                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-371-plus.svg#glyphicons-basic"/></svg> Neuer Anlass
+                        </a>
+                        <div class="dropdown-menu">
+                            <f:link.action action="new" pluginName="Month" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Neuen Einzel-Anlass erfassen'}" class="dropdown-item">
+                                Einzelner Anlass
+                            </f:link.action>
+                            <f:link.action action="newSeries" pluginName="Month" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Neue Datumsserie eines Anlasses erfassen'}" class="dropdown-item">
+                                Anlass-Serie
+                            </f:link.action>
+                        </div>
+                    </li>
+                </f:then>
+                <f:else>
+                    <li class="nav-item">
+                        <f:link.action action="search" pluginName="Search" arguments="{back:'listMonth'}" additionalAttributes="{title:'Suchformular'}" pageUid="{settings.monthViewPid}" class="nav-link">
+                            <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-28-search.svg#glyphicons-basic"/></svg> Suchformular
+                        </f:link.action>
+                    </li>
+                </f:else>
+            </f:security.ifHasRole>
+        </ul>
+    </div>
+    <div class="col-sm-3 col-12 d-xl-none">
+        <f:render partial="Pagination/PaginationYear" arguments="{pagination:pagination}" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-xl-10">
+        <f:render partial="Pagination/PaginationMonth" arguments="{pagination:pagination}" />
+    </div>
+    <div class="col-lg-2 d-none d-xl-inline">
+        <f:render partial="Pagination/PaginationYear" arguments="{pagination:pagination}" />
+    </div>
+</div>
+
+<br clear="all" />
+
+<p>
+	<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-636-circle-info.svg#glyphicons-basic"/></svg>
+    <b>Hinweis:</b> Mit der Maus über die Anlass-Beschreibungen fahren, um Details zu sehen.
+</p>
+
+<div class="d-none d-sm-block">
+	<table class="table table-bordered">
+		<f:for each="{dayList}" as="d">
+            <f:if condition="{d}==1 || {d}==11 || {d}==21">
+                <tr>
+                    <th colspan="2">Datum</th>
+                    <th>Zeit</th>
+                    <th>Beschreibung</th>
+                    <f:for each="{rooms}" as="room">
+                        <th>
+                            <div class="d-none d-lg-block">{room.title}</div>
+                            <div class="d-none d-md-block d-lg-none"><span data-toggle="tooltip" data-placement="bottom" title="{room.title}">{room.titleShort}</span></div>
+                            <div class="d-none d-sm-block d-md-none"><span data-toggle="tooltip" data-placement="bottom" title="{room.title}">{room.titleTiny}</span></div>
+                        </th>
+                    </f:for>
+                </tr>
+            
+            </f:if>
+			<f:if condition="{d}<={numberOfDays}">
+				<agenda:todayEvents each="{events}" as="eventsToday" day="{d}" month="{month}" needRooms="1">
+					<f:if condition="{f:count(subject:eventsToday)}>0">
+						<f:then>
+							<f:for each="{eventsToday}" as="event" iteration="iteration">
+								<tr>
+									<agenda:weekdayCode as="wtagcode" day="{d}" month="{month}" year="{year}">
+										<f:if condition="{iteration.isFirst}">
+											<agenda:tdRowspan array="{eventsToday}" class="{f:if(condition:'{wtagcode}==0',then:'table-info')}">
+												<agenda:weekday day="{d}" month="{month}" year="{year}" crop="2" />
+											</agenda:tdRowspan>
+											<agenda:tdRowspan array="{eventsToday}" class="{f:if(condition:'{wtagcode}==0',then:'table-info')}">
+												{d}.{month}.
+											</agenda:tdRowspan>
+										</f:if>
+										<td class="{f:if(condition:'{wtagcode}==0',then:'table-info')}">
+											<f:if condition="{event.allDay}">
+												<f:then>&nbsp;</f:then>
+												<f:else>
+													<nobr>
+														{f:format.date(date:event.eventStart,format:'H.i')}
+														<f:if condition="{event.eventEndTimeFormat}"> &ndash; {f:format.date(date:event.eventEnd,format:'H.i')}</f:if>
+														<f:comment>Uhr</f:comment>
+													</nobr>
+												</f:else>
+											</f:if>
+										</td>
+										<td class="{f:if(condition:'{wtagcode}==0',then:' table-info')}">
+											<span data-toggle="tooltip" data-placement="bottom" data-html="true" title="<b>{event.descriptionFirstLine}</b><br /><f:if condition="{event.descriptionRest}"><f:format.nl2br>{event.descriptionRest}<br /></f:format.nl2br></f:if><f:if condition="{event.allDay}==0"><f:then>{f:format.date(date:event.eventStart,format:'H:i')}<f:if condition="{event.eventEndTimeFormat}">&ndash;{event.eventEndTimeFormat}</f:if></f:then><f:else>ganztägig</f:else></f:if>">{event.category.title}</span>
+										</td>
+									</agenda:weekdayCode>
+									<f:for each="{rooms}" as="room">
+										<agenda:inArray needle="{room.uid}" haystack="{event.roomArray}">
+											<f:then><td style="background-color:#ff9999" title="belegt">&nbsp;</td></f:then>
+											<f:else><td style="background-color:#ccffcc" title="frei">&nbsp;</td></f:else>
+										</agenda:inArray>
+									</f:for>
+								</tr>
+							</f:for>
+						</f:then>
+						<f:else>
+							<tr>
+								<td><agenda:weekday day="{d}" month="{month}" year="{year}" crop="2"/></td><td>{d}.{month}.</td><td>&nbsp;</td><td>&nbsp;</td>
+								<f:for each="{rooms}" as="room">
+									<td style="background-color:#ccffcc">&nbsp;</td>
+								</f:for>
+							</tr>
+						</f:else>
+					</f:if>
+				</agenda:todayEvents>
+			</f:if>
+		</f:for>
+	</table>
+</div>
+
+<div class="d-block d-sm-none">
+	<table class="table table-bordered table-sm">
+		<tr>
+			<th>Tag</th>
+			<th>Beschr.</th>
+			<f:for each="{rooms}" as="room">
+				<th><span data-toggle="tooltip" data-placement="bottom" title="{room.title}">{room.titleTiny}</span></th>
+			</f:for>
+		</tr>
+		<f:for each="{dayList}" as="d">
+			<f:if condition="{d}<={numberOfDays}">
+				<agenda:todayEvents each="{events}" as="eventsToday" day="{d}" month="{month}" needRooms="1">
+					<f:if condition="{f:count(subject:eventsToday)}>0">
+						<f:then>
+							<f:for each="{eventsToday}" as="event" iteration="iteration">
+								<tr>
+									<f:if condition="{iteration.isFirst}">
+										<agenda:tdRowspan array="{eventsToday}" class="{f:if(condition:'{event.eventStartWeekdayCode}==0',then:'info')}">
+											<f:format.date format="j.n.">{event.eventStart}</f:format.date>
+											<f:if condition="{event.severalDays}"> &ndash; <f:format.date format="j.n.">{event.eventEnd}</f:format.date></f:if>
+										</agenda:tdRowspan>
+									</f:if>
+									<td class="{f:if(condition:'{event.eventStartWeekdayCode}==0',then:' info')}">
+										<span data-toggle="tooltip" data-placement="bottom" data-html="1" title="<b>{event.descriptionFirstLine}</b><br /><f:if condition="{event.descriptionRest}"><f:format.nl2br>{event.descriptionRest}<br /></f:format.nl2br></f:if>{f:format.date(date:event.eventStart,format:'H:i')}<f:if condition="{event.eventEndTimeFormat}">&ndash;{event.eventEndTimeFormat}</f:if>"><f:format.crop maxCharacters="8" append="..">{event.category.title}</f:format.crop></span>
+									</td>
+									<f:for each="{rooms}" as="room">
+										<agenda:inArray needle="{room.uid}" haystack="{event.roomArray}">
+											<f:then><td style="background-color:#ff9999">&nbsp;</td></f:then>
+											<f:else><td style="background-color:#ccffcc">&nbsp;</td></f:else>
+										</agenda:inArray>
+									</f:for>
+								</tr>
+							</f:for>
+						</f:then>
+						<f:else>
+							<tr>
+								<td>{d}.{month}.</td>
+								<td>&nbsp;</td>
+								<f:for each="{rooms}" as="room">
+									<td style="background-color:#ccffcc">&nbsp;</td>
+								</f:for>
+							</tr>
+						</f:else>
+					</f:if>
+				</agenda:todayEvents>
+			</f:if>
+		</f:for>
+	</table>
+</div>
+
+</f:section>

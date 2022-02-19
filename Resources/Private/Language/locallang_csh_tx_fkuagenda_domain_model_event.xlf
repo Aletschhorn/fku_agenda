@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-02-24T22:11:50Z" product-name="fku_agenda">
+		<header/>
+		<body>
+
+			<trans-unit id="description.description">
+				<source>description</source>
+			</trans-unit>
+			<trans-unit id="event_start.description">
+				<source>eventStart</source>
+			</trans-unit>
+			<trans-unit id="event_start_date.description">
+				<source>eventStartDate</source>
+			</trans-unit>
+			<trans-unit id="event_start_time.description">
+				<source>eventStartTime</source>
+			</trans-unit>
+			<trans-unit id="event_end.description">
+				<source>eventEnd</source>
+			</trans-unit>
+			<trans-unit id="all_day.description">
+				<source>allDay</source>
+			</trans-unit>
+			<trans-unit id="link.description">
+				<source>link</source>
+			</trans-unit>
+			<trans-unit id="related_documents.description">
+				<source>relatedDocuments</source>
+			</trans-unit>
+			<trans-unit id="news_start.description">
+				<source>newsStart</source>
+			</trans-unit>
+			<trans-unit id="news_end.description">
+				<source>newsEnd</source>
+			</trans-unit>
+			<trans-unit id="news_text.description">
+				<source>newsText</source>
+			</trans-unit>
+			<trans-unit id="rooms.description">
+				<source>rooms</source>
+			</trans-unit>
+			<trans-unit id="resources.description">
+				<source>resources</source>
+			</trans-unit>
+			<trans-unit id="category.description">
+				<source>category</source>
+			</trans-unit>
+			<trans-unit id="visible.description">
+				<source>visible</source>
+			</trans-unit>
+			<trans-unit id="series.description">
+				<source>series</source>
+			</trans-unit>
+		</body>
+	</file>
+	<file source-language="de" datatype="plaintext" original="messages" date="2014-02-24T22:11:50Z" product-name="fku_agenda">
+		<header/>
+		<body>
+
+			<trans-unit id="description.description">
+				<source>Beschreibung</source>
+			</trans-unit>
+			<trans-unit id="event_start.description">
+				<source>Beginn</source>
+			</trans-unit>
+			<trans-unit id="event_start_date.description">
+				<source>Beginn-Datum</source>
+			</trans-unit>
+			<trans-unit id="event_start_time.description">
+				<source>Beginn-Zeit</source>
+			</trans-unit>
+			<trans-unit id="event_end.description">
+				<source>Ende</source>
+			</trans-unit>
+			<trans-unit id="all_day.description">
+				<source>Ganztägig</source>
+			</trans-unit>
+			<trans-unit id="link.description">
+				<source>Link</source>
+			</trans-unit>
+			<trans-unit id="related_documents.description">
+				<source>Zugehörige Dokumente</source>
+			</trans-unit>
+			<trans-unit id="news_start.description">
+				<source>News-Start</source>
+			</trans-unit>
+			<trans-unit id="news_end.description">
+				<source>News-Ende</source>
+			</trans-unit>
+			<trans-unit id="news_text.description">
+				<source>News-Text</source>
+			</trans-unit>
+			<trans-unit id="rooms.description">
+				<source>Räume</source>
+			</trans-unit>
+			<trans-unit id="resources.description">
+				<source>Hilfsmittel</source>
+			</trans-unit>
+			<trans-unit id="category.description">
+				<source>Kategorie</source>
+			</trans-unit>
+			<trans-unit id="visible.description">
+				<source>Sichtbarkeit</source>
+			</trans-unit>
+			<trans-unit id="series.description">
+				<source>Serie</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,113 @@
+<f:layout name="Default" />
+<f:section name="main">
+
+<f:flashMessages as="flashMessages">
+	<f:render partial="Alert" arguments="{flashMessages:flashMessages}" />
+</f:flashMessages>
+
+<f:comment> Navigation </f:comment>
+<ul class="nav nav-pills mb-4">
+    <li class="nav-item">
+        <f:link.action action="listMonth" pageUid="{settings.monthViewPid}" additionalAttributes="{title:'Monatsagenda anzeigen'}" class="nav-link">
+            <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-115-list.svg#glyphicons-basic"/></svg> Monatsansicht
+        </f:link.action>
+    </li>
+    <f:security.ifHasRole role="Standard">
+        <li class="nav-item">
+            <f:link.action action="listRoomAllocation" arguments="{month:month,year:year}" pageUid="{settings.roomViewPid}" additionalAttributes="{title:'Belegungsplan dieses Monats anzeigen'}" class="nav-link">
+                <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-120-table.svg#glyphicons-basic"/></svg> Belegungsplan
+            </f:link.action>
+        </li>
+    </f:security.ifHasRole>
+    <f:security.ifHasRole role="Administrator">
+        <li class="nav-item">
+            <f:link.action action="listMonthEdit" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Gehe zur Agenda-Adminitrationsansicht'}" class="nav-link">
+                <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-52-eye.svg#glyphicons-basic"/></svg> Admin-Ansicht
+            </f:link.action>
+        </li>
+        <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-371-plus.svg#glyphicons-basic"/></svg> Neuer Anlass
+            </a>
+            <div class="dropdown-menu">
+                <f:link.action action="new" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Neuen Einzel-Anlass erfassen'}" class="dropdown-item">
+                    Einzelner Anlass
+                </f:link.action>
+                <f:link.action action="newSeries" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Neue Datumsserie eines Anlasses erfassen'}" class="dropdown-item">
+                    Anlass-Serie
+                </f:link.action>
+            </div>
+        </li>
+    </f:security.ifHasRole>
+</ul>
+
+<f:comment> Search form </f:comment>
+<div class="row">
+	<div class="col-md-9 col-sm-10 col-12">
+		<f:form action="search" name="search" arguments="{back:back}">
+			<f:form.hidden name="sent" value="1" />
+			<div class="row form-group">
+				<label for="contains" class="col-sm-4 col-12 col-form-label">Anlass-Bezeichnung</label>
+				<div class="col-sm-4 col-6">
+					<f:form.select name="contains" options="{0:'beginnt mit',1:'enthält'}" value="{filter.contains}" class="form-control" />
+				</div>
+				<div class="col-sm-4 col-6">
+					<label for="expression" class="sr-only">Such-Begriff</label>
+					<f:form.textfield name="expression" value="{filter.expression}" class="form-control" />	
+				</div>
+			</div>
+			<div class="row form-group">
+				<label for="daterangeStart" class="col-sm-4 col-12 col-form-label">Datumsbereich</label>
+				<div class="col-sm-4 col-5">
+					<f:form.textfield name="daterangeStart" value="{filter.daterangeStart}" class="form-control" size="10" placeholder="TT.MM.JJJJ" />
+				</div>
+				<div class="col-sm-1 col-2">
+					<p class="form-control-plaintext">bis</p>
+				</div>
+				<div class="col-sm-3 col-5">
+					<label for="daterangeEnd" class="sr-only">Ende Datumsbereich</label>
+					<f:form.textfield name="daterangeEnd" value="{filter.daterangeEnd}" class="form-control" size="10" placeholder="TT.MM.JJJJ" />
+				</div>
+			</div>
+			<div class="row form-group">
+				<label for="category" class="col-sm-4 col-12 col-form-label">Kategorie</label>
+				<div class="col-sm-8 col-12">
+					<f:form.select name="category" options="{categories}" value="{filter.category}" class="form-control" optionLabelField="title" optionValueField="uid" prependOptionLabel="(alle)" />
+				</div>
+			</div>
+			<f:form.submit value="Suchen" class="btn btn-primary" />
+		</f:form>
+	</div>
+</div>
+<br /><br />
+
+<f:comment> Search results </f:comment>
+<f:if condition="{sent}">
+	<f:if condition="{error}">
+		<f:then>
+			<div class="alert alert-warning">
+            	<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-637-circle-alert.svg#glyphicons-basic"/></svg>
+                Zu wenige Such-Informationen angegeben: Mindestens ein Buchstabe der Anlass-Bezeichnung oder die Kategorie muss vorgegeben werden.
+            </div>
+		</f:then>
+		<f:else>
+			<f:if condition="{events}">
+				<f:then>
+					<div class="d-none d-sm-block">
+						<f:render partial="Event/ListIndividualRows" arguments="{events:events,settings:settings}" />
+					</div>
+					<div class="d-block d-sm-none">
+						<f:render partial="Event/ListSmall" arguments="{events:events}" />
+					</div>
+				</f:then>
+				<f:else>
+					<div class="alert alert-info">
+                    	<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-636-circle-info.svg#glyphicons-basic"/></svg>
+                        Keine Anlässe gefunden.
+                    </div>
+				</f:else>
+			</f:if>
+		</f:else>
+	</f:if>
+</f:if>
+</f:section>

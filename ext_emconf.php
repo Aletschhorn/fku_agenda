@@ -123,5 +123,6 @@ $EM_CONF[$_EXTKEY] = [
  * Create separate plugins (in ext_localconf.php) and removed switchableControllerActions from pi_flexform
  * Define dependency injections with Service.yaml, remove Commands.php to define scheduler tasks
  *
+ *
  */
 ?>

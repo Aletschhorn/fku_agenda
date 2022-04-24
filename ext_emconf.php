@@ -18,7 +18,7 @@ $EM_CONF[$_EXTKEY] = [
 	'author_email' => 'daniel.widmer@fku.ch',
 	'state' => 'stable',
 	'clearCacheOnLoad' => 1,
-	'version' => '7.0.0',
+	'version' => '7.0.1',
 	'constraints' => [
 		'depends' => [
 			'typo3' => '8.7.0-10.4.99',
@@ -122,6 +122,10 @@ $EM_CONF[$_EXTKEY] = [
  * Remove left-overs from beamer view and Losungen
  * Create separate plugins (in ext_localconf.php) and removed switchableControllerActions from pi_flexform
  * Define dependency injections with Service.yaml, remove Commands.php to define scheduler tasks
+ *
+ * Version 7.0.1
+ * -------------                    
+ * Remove debug comments in ListIndividualRows.html
  *
  *
  */

@@ -45,11 +45,9 @@
 						<br />
 						<f:if condition="{agenda:isNumber(value:event.link)}">
 							<f:then>
-                            aaa3
 								<f:link.page pageUid="{event.link}" additionalAttributes="{title:'Internet-Seite mit weiteren Informationen'}">Weitere Informationen</f:link.page>
 							</f:then>
 							<f:else>
-                            bbb3
 								<f:link.external uri="{event.link}" target="_blank" additionalAttributes="{title:'Internet-Seite mit weiteren Informationen'}"><f:format.crop maxCharacters="40" append="...">{event.link}</f:format.crop> <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-351-link.svg#glyphicons-basic"/></svg></f:link.external>
 							</f:else>
 						</f:if>

@@ -1166,46 +1166,52 @@ class EventController extends ActionController {
 	 * @return void
 	 * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("event")
 	 */
-	public function icsAction(\FKU\FkuAgenda\Domain\Model\Event $event) {
+	public function icsAction(\FKU\FkuAgenda\Domain\Model\Event $event = NULL) {
 		
-		$title = $this->settings['icsPrefix'].$this->replaceUmlaute($event->getDescriptionFirstLine()).'_'.$event->getEventStart()->format('Y-m-d').'.ics';
-		header ('Expires: 0');
-		header ('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-		header ('Content-Disposition: attachment; filename=' . $title);
-		header ('Content-Type: text/ics');
-		
-		$hasCategory = true;
-		if (! $event->getCategory()) {
-			$hasCategory = false; // could be due to missing or hidden cagegory
-		}
-		if ($event->getAllDay()) {
-			$prefix = 'VALUE=DATE';
-			$begin = $event->getEventStart()->format('Ymd');
-			if ($event->getEventEnd() and $event->getEventStart() != $event->getEventEnd()) {
-				$end = date('Ymd', strtotime('+1 days',$event->getEventEnd()->getTimestamp()));
-			} else {
-				$end = $begin;
-			}
-		} else {
-			$prefix = 'TZID=Europe/Berlin';
-			$begin = $event->getEventStart()->format('Ymd\THis');
-			if ($event->getEventEnd() and $event->getEventStart() != $event->getEventEnd()) {
-				$end = $event->getEventEnd()->format('Ymd\THis');
-			} elseif ($hasCategory && $event->getCategory()->getDuration() > 0) {
-				$duration = $event->getCategory()->getDuration();
-				$time = strtotime('+'.$duration.' minutes',$event->getEventStart()->format('U'));
-				$end = date('Ymd\THis',$time);
-			} else {
-				$end = $begin;
-			}
-		}
+		// After splitting the plugin View into several others, many requests for plugin tx_fkuagenda_view with action=ics reached the website without a referrer.
+		// To reduce the error messages in the log, $event can be NULL and is checked only inside the function to be true.
+		if ($event) {
 
-		$this->view->assignMultiple(array(
-			'event' => $event,
-			'begin' => $begin,
-			'end' => $end,
-			'prefix' => $prefix,
-		));
+			$title = $this->settings['icsPrefix'].$this->replaceUmlaute($event->getDescriptionFirstLine()).'_'.$event->getEventStart()->format('Y-m-d').'.ics';
+			header ('Expires: 0');
+			header ('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+			header ('Content-Disposition: attachment; filename=' . $title);
+			header ('Content-Type: text/ics');
+			
+			$hasCategory = true;
+			if (! $event->getCategory()) {
+				$hasCategory = false; // could be due to missing or hidden cagegory
+			}
+			if ($event->getAllDay()) {
+				$prefix = 'VALUE=DATE';
+				$begin = $event->getEventStart()->format('Ymd');
+				if ($event->getEventEnd() and $event->getEventStart() != $event->getEventEnd()) {
+					$end = date('Ymd', strtotime('+1 days',$event->getEventEnd()->getTimestamp()));
+				} else {
+					$end = $begin;
+				}
+			} else {
+				$prefix = 'TZID=Europe/Berlin';
+				$begin = $event->getEventStart()->format('Ymd\THis');
+				if ($event->getEventEnd() and $event->getEventStart() != $event->getEventEnd()) {
+					$end = $event->getEventEnd()->format('Ymd\THis');
+				} elseif ($hasCategory && $event->getCategory()->getDuration() > 0) {
+					$duration = $event->getCategory()->getDuration();
+					$time = strtotime('+'.$duration.' minutes',$event->getEventStart()->format('U'));
+					$end = date('Ymd\THis',$time);
+				} else {
+					$end = $begin;
+				}
+			}
+	
+			$this->view->assignMultiple(array(
+				'event' => $event,
+				'begin' => $begin,
+				'end' => $end,
+				'prefix' => $prefix,
+			));
+
+		}			
 	}
 
 	/**

@@ -947,7 +947,7 @@ class EventController extends ActionController {
 			}
 	
 			$goto = [];
-			$modified = [];
+			$modified = ['updated' => [], 'deleted' => [], 'new' => []];
 			$message = '';
 	
 			if ($modifiedDates and $series->getDateStart() and $series->getDateEnd()) {

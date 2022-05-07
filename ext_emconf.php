@@ -18,7 +18,7 @@ $EM_CONF[$_EXTKEY] = [
 	'author_email' => 'daniel.widmer@fku.ch',
 	'state' => 'stable',
 	'clearCacheOnLoad' => 1,
-	'version' => '7.0.2',
+	'version' => '7.0.3',
 	'constraints' => [
 		'depends' => [
 			'typo3' => '8.7.0-10.4.99',
@@ -130,6 +130,10 @@ $EM_CONF[$_EXTKEY] = [
  * Version 7.0.2
  * -------------                    
  * Check variable $event in event controller action "ics"
+ *
+ * Version 7.0.3
+ * -------------                    
+ * Minor change in EventController to avoid errors with array "modified" in updateSeriesAction
  *
  *
  */

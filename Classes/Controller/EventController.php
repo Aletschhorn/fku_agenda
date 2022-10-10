@@ -536,11 +536,6 @@ class EventController extends ActionController {
 
 		// write to database
 		$this->eventRepository->add($event);
-		
-		if ($this->settings['deleteCachePid']) {
-			$this->clearSpecificCache($this->settings['deleteCachePid']);
-		}
-
 		$this->addFlashMessage('Der Anlass wurde eingetragen.','',\TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
 		$this->redirect('listMonthEdit','Event','fkuagenda',array('month' => $event->getEventStart()->format('n'),'year' => $event->getEventStart()->format('Y')));
 	}
@@ -641,11 +636,7 @@ class EventController extends ActionController {
 		}
 
 		if (count($datesMessage) > 0) {
-			if ($this->settings['deleteCachePid']) {
-				$this->clearSpecificCache($this->settings['deleteCachePid']);
-			}
 			$this->addFlashMessage('Anlässe an folgenden Daten wurden erstellt: '.implode(', ',$datesMessage),'Anlass-Serie erstellt',\TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-
 		} else {
 			$this->addFlashMessage('Es konnten keine Anlässe erstellt werden, da es zwischen Anfangs- und Enddatum der Serie kein passendes Anlassdatum gibt.','Problem',\TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
 			$dates[0] = time();
@@ -755,11 +746,6 @@ class EventController extends ActionController {
 
 		// write to database
 		$this->eventRepository->update($event);
-
-		if ($this->settings['deleteCachePid']) {
-			$this->clearSpecificCache($this->settings['deleteCachePid']);
-		}
-	
 		$this->addFlashMessage('Die Anlass-Daten wurden gespeichert.','',\TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
 		$this->redirect('listMonthEdit','Event','fkuagenda',array('month' => $event->getEventStart()->format('n'),'year' => $event->getEventStart()->format('Y')));
 	}
@@ -1124,12 +1110,7 @@ class EventController extends ActionController {
 	 * @return void
 	 */
 	public function deleteAction(\FKU\FkuAgenda\Domain\Model\Event $event) {
-
 		$this->eventRepository->remove($event);
-		if ($this->settings['deleteCachePid']) {
-			$this->clearSpecificCache($this->settings['deleteCachePid']);
-		}
-
 		$this->addFlashMessage('Der Anlass wurde gelöscht.','',\TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
 		$this->redirect('listMonthEdit','Event','fkuagenda',array('month' => $event->getEventStart()->format('n'),'year' => $event->getEventStart()->format('Y')));
 	}
@@ -1149,11 +1130,6 @@ class EventController extends ActionController {
 			$this->persistenceManager->persistAll();
 		}
 		$this->seriesRepository->remove($series);
-		
-		if ($this->settings['deleteCachePid']) {
-			$this->clearSpecificCache($this->settings['deleteCachePid']);
-		}
-
 		$this->addFlashMessage('Die Serie mit allen zugehörigen Anlässen wurde gelöscht.','',\TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
 		$this->redirect('listMonthEdit','Event','fkuagenda',array('month' => $series->getDateStart()->format('n'),'year' => $series->getDateStart()->format('Y')));
 	}
@@ -1609,16 +1585,5 @@ class EventController extends ActionController {
 		}
 		return $events;
 	}
-
-	/**
-	* clearSpecificCache
-	*
-	* @param string $pid Comma-separated list of PIDs
-	* @return void
-	*/
-    protected function clearSpecificCache($pid) {
-		$pageIds = explode(',',$pid);
-		$this->cacheService->clearPageCache($pageIds);
-    }
 }
 ?>

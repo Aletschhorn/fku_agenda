@@ -23,7 +23,6 @@ plugin.tx_fkuagenda {
 		icsPrefix = {$plugin.tx_fkuagenda.settings.icsPrefix}
 		icsPid = {$plugin.tx_fkuagenda.settings.icsPid}
 		icsPageType = {$plugin.tx_fkuagenda.settings.icsPageType}
-		deleteCachePid = {$plugin.tx_fkuagenda.settings.deleteCachePid}
 	}
 }
 

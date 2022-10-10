@@ -32,7 +32,5 @@ plugin.tx_fkuagenda {
 		icsPid =		
 		# cat=plugin.tx_fkuagenda/others/l; type=string; label=Prefix for ics file
 		icsPrefix = FKU_
-		# cat=plugin.tx_fkuagenda/others/i; type=string; label=PID of pages which cache to delete after any edit (comma-separated)
-		deleteCachePid = 
 	}
 }

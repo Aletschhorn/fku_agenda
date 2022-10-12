@@ -64,13 +64,13 @@
 						</f:if>
 					</f:if>
 
-					<f:link.action action="ics" pluginName="Ics" arguments="{event:event}" pageUid="{settings.icsPid}" pageType="{settings.icsPageType}" additionalAttributes="{title:'Anlass in eigenen Kalender übernehmen'}">
+					<f:link.action action="ics" pluginName="Ics" arguments="{event:event}" pageUid="{settings.ics.pid}" pageType="{settings.ics.pageType}" additionalAttributes="{title:'Anlass in eigenen Kalender übernehmen'}">
 						<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-46-calendar.svg#glyphicons-basic"/></svg>
 					</f:link.action>
 
 					<f:security.ifHasRole role="Administrator">
 						&nbsp;
-						<f:link.action action="edit" pageUid="{settings.adminViewPid}" arguments="{event:event}" additionalAttributes="{title:'Anlass editieren'}">
+						<f:link.action action="edit" pageUid="{settings.pageID.admin}" arguments="{event:event}" additionalAttributes="{title:'Anlass editieren'}">
 							<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-31-pencil.svg#glyphicons-basic"/></svg>
 						</f:link.action>
 					</f:security.ifHasRole>

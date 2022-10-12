@@ -112,14 +112,14 @@
         <f:security.ifHasRole role="Administrator">
             <f:then>
                 <li class="nav-item">
-                    <f:link.action action="search" arguments="{back:'listMonth'}" additionalAttributes="{title:'Suchformular'}" pageUid="{settings.adminSearchViewPid->f:or(alternative:settings.monthViewPid)}" class="nav-link">
+                    <f:link.action action="search" pluginName="Search" arguments="{back:'listMonth'}" additionalAttributes="{title:'Suchformular'}" pageUid="{settings.pageID.adminSearch->f:or(alternative:settings.pageID.month)}" class="nav-link">
                         <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-28-search.svg#glyphicons-basic"/></svg> Suchformular
                     </f:link.action>
                 </li>
             </f:then>
             <f:else>
                 <li class="nav-item">
-                    <f:link.action action="search" arguments="{back:'listMonth'}" additionalAttributes="{title:'Suchformular'}" pageUid="{settings.monthViewPid}" class="nav-link">
+                    <f:link.action action="search" pluginName="Search" arguments="{back:'listMonth'}" additionalAttributes="{title:'Suchformular'}" pageUid="{settings.pageID.search}" class="nav-link">
                         <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-28-search.svg#glyphicons-basic"/></svg> Suchformular
                     </f:link.action>
                 </li>
@@ -127,7 +127,7 @@
         </f:security.ifHasRole>
         <f:security.ifHasRole role="Standard">
             <li class="nav-item">
-                <f:link.action action="listRoomAllocation" arguments="{month:month,year:year}" pageUid="{settings.roomViewPid}" additionalAttributes="{title:'Belegungsplan dieses Monats anzeigen'}" class="nav-link">
+                <f:link.action action="listRoomAllocation" pluginName="Rooms" arguments="{month:month,year:year}" pageUid="{settings.pageID.room}" additionalAttributes="{title:'Belegungsplan dieses Monats anzeigen'}" class="nav-link">
                     <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-120-table.svg#glyphicons-basic"/></svg> Belegungsplan
                 </f:link.action>
             </li>
@@ -139,16 +139,16 @@
                     Admin-Optionen
                 </a>
                 <div class="dropdown-menu">
-                    <f:link.action action="listMonthEdit" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Agenda-Adminitrationsansicht'}" class="dropdown-item">
+                    <f:link.action action="listMonthEdit" pageUid="{settings.pageID.admin}" additionalAttributes="{title:'Agenda-Adminitrationsansicht'}" class="dropdown-item">
                         Admin-Ansicht
                     </f:link.action>
                     <f:link.action action="listMonth" arguments="{layout:'FkuAktuell',month:month,year:year}" additionalAttributes="{title:'Kalender-Ansicht für FKU aktuell'}" class="dropdown-item">
                         FKU-aktuell-Ansicht
                     </f:link.action>
-                    <f:link.action action="new" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Neuen Einzel-Anlass erfassen'}" class="dropdown-item">
+                    <f:link.action action="new" pageUid="{settings.pageID.admin}" additionalAttributes="{title:'Neuen Einzel-Anlass erfassen'}" class="dropdown-item">
                         Neuer Anlass
                     </f:link.action>
-                    <f:link.action action="newSeries" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Neue Datumsserie eines Anlasses erfassen'}" class="dropdown-item">
+                    <f:link.action action="newSeries" pageUid="{settings.pageID.admin}" additionalAttributes="{title:'Neue Datumsserie eines Anlasses erfassen'}" class="dropdown-item">
                         Neue Anlass-Serie
                     </f:link.action>
                 </div>

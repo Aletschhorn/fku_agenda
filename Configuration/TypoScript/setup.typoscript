@@ -13,16 +13,19 @@ plugin.tx_fkuagenda {
 	}
 	settings {
 		storagePid = {$plugin.tx_fkuagenda.persistence.storagePid}
-		fileStorageUid = {$plugin.tx_fkuagenda.settings.fileStorageUid}
-		monthViewPid = {$plugin.tx_fkuagenda.settings.monthViewPid}
-		yearViewPid = {$plugin.tx_fkuagenda.settings.yearViewPid}
-		searchViewPid = {$plugin.tx_fkuagenda.settings.searchViewPid}
-		adminSearchViewPid = {$plugin.tx_fkuagenda.settings.adminSearchViewPid}
-		roomViewPid = {$plugin.tx_fkuagenda.settings.roomViewPid}
-		adminViewPid = {$plugin.tx_fkuagenda.settings.adminViewPid}
-		icsPrefix = {$plugin.tx_fkuagenda.settings.icsPrefix}
-		icsPid = {$plugin.tx_fkuagenda.settings.icsPid}
-		icsPageType = {$plugin.tx_fkuagenda.settings.icsPageType}
+		pageID {
+			month = {$plugin.tx_fkuagenda.settings.pageID.month}
+			year = {$plugin.tx_fkuagenda.settings.pageID.year}
+			search = {$plugin.tx_fkuagenda.settings.pageID.search}
+			adminSearch = {$plugin.tx_fkuagenda.settings.pageID.adminSearch}
+			room = {$plugin.tx_fkuagenda.settings.pageID.room}
+			admin = {$plugin.tx_fkuagenda.settings.pageID.admin}
+		}
+		ics {
+			prefix = {$plugin.tx_fkuagenda.settings.ics.prefix}
+			pid = {$plugin.tx_fkuagenda.settings.ics.pid}
+			pageType = {$plugin.tx_fkuagenda.settings.ics.pageType}
+		}
 	}
 }
 
@@ -30,7 +33,7 @@ module.tx_fkuagenda.persistence.storagePid = {$plugin.tx_fkuagenda.persistence.s
 
 page_ics = PAGE
 page_ics {
-  typeNum = {$plugin.tx_fkuagenda.settings.icsPageType}
+  typeNum = {$plugin.tx_fkuagenda.settings.ics.pageType}
   config {
     disableAllHeaderCode = 1
     additionalHeaders = Content-type:text/calendar

@@ -12,7 +12,7 @@
 </f:for>
 
 <f:if condition="{settings.showCategoryMonthListLink}">
-	<p>Weitere Daten in der <f:link.action action="listMonth" pluginName="Month" arguments="{category:settings.showCategory}" pageUid="{settings.monthlyListPid}">Agenda</f:link.action></p>
+	<p>Weitere Daten in der <f:link.action action="listMonth" pluginName="Month" arguments="{category:settings.showCategory}" pageUid="{settings.pageID.month}">Agenda</f:link.action></p>
 </f:if>
 
 <f:if condition="{settings.textAfter}"><f:format.html>{settings.textAfter}</f:format.html></f:if>

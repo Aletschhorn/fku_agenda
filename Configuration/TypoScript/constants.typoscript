@@ -14,23 +14,27 @@ plugin.tx_fkuagenda {
 	settings {
 		# cat=plugin.tx_fkuagenda/others/b; type=int+; label=File storage UID
 		fileStorageUid = 1
-		# cat=plugin.tx_fkuagenda/others/c; type=int+; label=PID of month view
-		monthViewPid =
-		# cat=plugin.tx_fkuagenda/others/d; type=int+; label=PID of year view
-		yearViewPid =
-		# cat=plugin.tx_fkuagenda/others/e; type=int+; label=PID of search form
-		searchViewPid =
-		# cat=plugin.tx_fkuagenda/others/f; type=int+; label=PID of admin search form
-		adminSearchViewPid =
-		# cat=plugin.tx_fkuagenda/others/g; type=int+; label=PID of room allocation view
-		roomViewPid =
-		# cat=plugin.tx_fkuagenda/others/h; type=int+; label=PID of admin view
-		adminViewPid =		
-		# cat=plugin.tx_fkuagenda/others/i; type=int+; label=Page type number for ics file
-		icsPageType = 150
-		# cat=plugin.tx_fkuagenda/others/k; type=int+; label=PID for ics file
-		icsPid =		
-		# cat=plugin.tx_fkuagenda/others/l; type=string; label=Prefix for ics file
-		icsPrefix = FKU_
+		pageID {
+			# cat=plugin.tx_fkuagenda/others/c; type=int+; label=PID of month view
+			month =
+			# cat=plugin.tx_fkuagenda/others/d; type=int+; label=PID of year view
+			year =
+			# cat=plugin.tx_fkuagenda/others/e; type=int+; label=PID of search form
+			search =
+			# cat=plugin.tx_fkuagenda/others/f; type=int+; label=PID of admin search form
+			adminSearch =
+			# cat=plugin.tx_fkuagenda/others/g; type=int+; label=PID of room allocation view
+			room =
+			# cat=plugin.tx_fkuagenda/others/h; type=int+; label=PID of admin view
+			admin =	
+		}
+		ics {
+			# cat=plugin.tx_fkuagenda/others/i; type=int+; label=Page type number for ics file
+			pageType = 150
+			# cat=plugin.tx_fkuagenda/others/k; type=int+; label=PID for ics file
+			pid =		
+			# cat=plugin.tx_fkuagenda/others/l; type=string; label=Prefix for ics file
+			prefix = FKU_
+		}
 	}
 }

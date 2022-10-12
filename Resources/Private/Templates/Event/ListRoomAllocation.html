@@ -10,19 +10,19 @@
     <div class="col-sm-9 col-12">
         <ul class="nav nav-pills mb-4">
             <li class="nav-item">
-                <f:link.action action="listMonth" pluginName="Month" pageUid="{settings.monthViewPid}" additionalAttributes="{title:'Monatsagenda anzeigen'}" class="nav-link">
+                <f:link.action action="listMonth" pluginName="Month" pageUid="{settings.pageID.month}" additionalAttributes="{title:'Monatsagenda anzeigen'}" class="nav-link">
                     <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-115-list.svg#glyphicons-basic"/></svg> Monatsansicht
                 </f:link.action>
             </li>
             <f:security.ifHasRole role="Administrator">
 				<f:then>
                     <li class="nav-item">
-                        <f:link.action action="search" pluginName="Search" arguments="{back:'listMonth'}" additionalAttributes="{title:'Suchformular'}" pageUid="{settings.adminSearchViewPid->f:or(alternative:settings.monthViewPid)}" class="nav-link">
+                        <f:link.action action="search" pluginName="Search" arguments="{back:'listMonth'}" additionalAttributes="{title:'Suchformular'}" pageUid="{settings.pageID.adminSearch->f:or(alternative:settings.pageID.month)}" class="nav-link">
                             <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-28-search.svg#glyphicons-basic"/></svg> Suchformular
                         </f:link.action>
                     </li>
                     <li class="nav-item">
-                        <f:link.action action="listMonthEdit" pluginName="Month" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Gehe zur Agenda-Adminitrationsansicht'}" class="nav-link">
+                        <f:link.action action="listMonthEdit" pluginName="Month" pageUid="{settings.pageID.admin}" additionalAttributes="{title:'Gehe zur Agenda-Adminitrationsansicht'}" class="nav-link">
                             <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-52-eye.svg#glyphicons-basic"/></svg> Admin-Ansicht
                         </f:link.action>
                     </li>
@@ -31,10 +31,10 @@
                             <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-371-plus.svg#glyphicons-basic"/></svg> Neuer Anlass
                         </a>
                         <div class="dropdown-menu">
-                            <f:link.action action="new" pluginName="Month" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Neuen Einzel-Anlass erfassen'}" class="dropdown-item">
+                            <f:link.action action="new" pluginName="Month" pageUid="{settings.pageID.admin}" additionalAttributes="{title:'Neuen Einzel-Anlass erfassen'}" class="dropdown-item">
                                 Einzelner Anlass
                             </f:link.action>
-                            <f:link.action action="newSeries" pluginName="Month" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Neue Datumsserie eines Anlasses erfassen'}" class="dropdown-item">
+                            <f:link.action action="newSeries" pluginName="Month" pageUid="{settings.pageID.admin}" additionalAttributes="{title:'Neue Datumsserie eines Anlasses erfassen'}" class="dropdown-item">
                                 Anlass-Serie
                             </f:link.action>
                         </div>
@@ -42,7 +42,7 @@
                 </f:then>
                 <f:else>
                     <li class="nav-item">
-                        <f:link.action action="search" pluginName="Search" arguments="{back:'listMonth'}" additionalAttributes="{title:'Suchformular'}" pageUid="{settings.monthViewPid}" class="nav-link">
+                        <f:link.action action="search" pluginName="Search" arguments="{back:'listMonth'}" additionalAttributes="{title:'Suchformular'}" pageUid="{settings.pageID.month}" class="nav-link">
                             <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-28-search.svg#glyphicons-basic"/></svg> Suchformular
                         </f:link.action>
                     </li>

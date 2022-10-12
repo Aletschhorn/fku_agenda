@@ -1148,7 +1148,7 @@ class EventController extends ActionController {
 		// To reduce the error messages in the log, $event can be NULL and is checked only inside the function to be true.
 		if ($event) {
 
-			$title = $this->settings['icsPrefix'].$this->replaceUmlaute($event->getDescriptionFirstLine()).'_'.$event->getEventStart()->format('Y-m-d').'.ics';
+			$title = $this->settings['ics']['prefix'].$this->replaceUmlaute($event->getDescriptionFirstLine()).'_'.$event->getEventStart()->format('Y-m-d').'.ics';
 			header ('Expires: 0');
 			header ('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 			header ('Content-Disposition: attachment; filename=' . $title);

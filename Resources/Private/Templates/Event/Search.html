@@ -8,20 +8,20 @@
 <f:comment> Navigation </f:comment>
 <ul class="nav nav-pills mb-4">
     <li class="nav-item">
-        <f:link.action action="listMonth" pageUid="{settings.monthViewPid}" additionalAttributes="{title:'Monatsagenda anzeigen'}" class="nav-link">
+        <f:link.action action="listMonth" pageUid="{settings.pageID.month}" pluginName="Month" additionalAttributes="{title:'Monatsagenda anzeigen'}" class="nav-link">
             <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-115-list.svg#glyphicons-basic"/></svg> Monatsansicht
         </f:link.action>
     </li>
     <f:security.ifHasRole role="Standard">
         <li class="nav-item">
-            <f:link.action action="listRoomAllocation" arguments="{month:month,year:year}" pageUid="{settings.roomViewPid}" additionalAttributes="{title:'Belegungsplan dieses Monats anzeigen'}" class="nav-link">
+            <f:link.action action="listRoomAllocation" pluginName="Rooms" arguments="{month:month,year:year}" pageUid="{settings.pageID.room}" additionalAttributes="{title:'Belegungsplan dieses Monats anzeigen'}" class="nav-link">
                 <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-120-table.svg#glyphicons-basic"/></svg> Belegungsplan
             </f:link.action>
         </li>
     </f:security.ifHasRole>
     <f:security.ifHasRole role="Administrator">
         <li class="nav-item">
-            <f:link.action action="listMonthEdit" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Gehe zur Agenda-Adminitrationsansicht'}" class="nav-link">
+            <f:link.action action="listMonthEdit" pluginName="Month" pageUid="{settings.pageID.admin}" additionalAttributes="{title:'Gehe zur Agenda-Adminitrationsansicht'}" class="nav-link">
                 <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-52-eye.svg#glyphicons-basic"/></svg> Admin-Ansicht
             </f:link.action>
         </li>
@@ -30,10 +30,10 @@
                 <svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-371-plus.svg#glyphicons-basic"/></svg> Neuer Anlass
             </a>
             <div class="dropdown-menu">
-                <f:link.action action="new" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Neuen Einzel-Anlass erfassen'}" class="dropdown-item">
+                <f:link.action action="new" pluginName="Month" pageUid="{settings.pageID.admin}" additionalAttributes="{title:'Neuen Einzel-Anlass erfassen'}" class="dropdown-item">
                     Einzelner Anlass
                 </f:link.action>
-                <f:link.action action="newSeries" pageUid="{settings.adminViewPid}" additionalAttributes="{title:'Neue Datumsserie eines Anlasses erfassen'}" class="dropdown-item">
+                <f:link.action action="newSeries" pluginName="Month" pageUid="{settings.pageID.admin}" additionalAttributes="{title:'Neue Datumsserie eines Anlasses erfassen'}" class="dropdown-item">
                     Anlass-Serie
                 </f:link.action>
             </div>

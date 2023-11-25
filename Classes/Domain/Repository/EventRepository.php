@@ -181,6 +181,21 @@ class EventRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		return $query->execute();
 	}
 
+
+	/**
+	* findPast
+	*
+	* @param \timestamp $timestamp End date
+	* @return
+	*/
+	public function findPast($timestamp) {
+
+		$query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+		$query->matching($query->lessThanOrEqual('eventStart',$timestamp));
+		return $query->execute();
+	}
+
 	/**
 	* findByUpdate
 	*

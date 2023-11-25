@@ -13,3 +13,9 @@ services:
       - name: 'console.command'
         command: 'fku_agenda:ical'
         description: 'Creates an .ics file of all events of a certain event category and visibility category'
+
+  FKU\FkuAgenda\Command\SweepCommand:
+    tags:
+      - name: 'console.command'
+        command: 'fku_agenda:sweep'
+        description: 'Deletes events older than a given number of years'

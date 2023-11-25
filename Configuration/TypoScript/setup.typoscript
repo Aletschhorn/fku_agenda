@@ -12,7 +12,7 @@ plugin.tx_fkuagenda {
 		# rewrittenPropertyMapper = 1
 	}
 	settings {
-		storagePid = {$plugin.tx_fkuagenda.persistence.storagePid}
+		fileStorageUid = {$plugin.tx_fkuagenda.settings.fileStorageUid}
 		pageID {
 			month = {$plugin.tx_fkuagenda.settings.pageID.month}
 			year = {$plugin.tx_fkuagenda.settings.pageID.year}

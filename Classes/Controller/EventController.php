@@ -183,9 +183,6 @@ class EventController extends ActionController {
 		}
 
 		$events = $this->eventRepository->findByMonth($selection['month'], $selection['year'], $visibility, $categoriesAll, $categories);
-		if ($this->settings['preacher']) {
-			$events = $this->removePreacher($events);
-		}
 
 		$this->view->assignMultiple(array(
 			'events' => $events,
@@ -1568,22 +1565,6 @@ class EventController extends ActionController {
 		$replace = array ('ae', 'oe', 'ue', 'Ae', 'Oe', 'Ue', '_');
 		$new_text  = str_replace($search, $replace, $text);
 		return $new_text;
-	}
-
-	/**
-	 * Remove line with name of preacher from event descriptions
-	 *
-	 * @param TYPO3\CMS\Extbase\Persistence\Generic\QueryResult $events
-	 * @return $events
-	 */
-	protected function removePreacher($events) {
-		foreach ($events as $key => $event) {
-			$description = $event->getDescription();
-			if (preg_match('/Predigt.*\n/', $description, $result)) {
-				$events[$key]->setDescription(str_replace($result[0],'',$description));
-			}
-		}
-		return $events;
 	}
 }
 ?>

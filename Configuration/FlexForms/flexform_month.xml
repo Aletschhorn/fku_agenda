@@ -74,15 +74,6 @@
 							</config>
 						</TCEforms>
 					</settings.showCategoryDetailLink>
-					<settings.preacher>
-						<TCEforms>
-							<label>Remove name of preacher</label>
-							<config>
-								<type>check</type>
-								<renderType>checkboxToggle</renderType>
-							</config>
-						</TCEforms>
-					</settings.preacher>
 					<settings.monthlyListPid>
 						<TCEforms>
 							<label>Monthly view page</label>

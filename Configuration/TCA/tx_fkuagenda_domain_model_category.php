@@ -3,8 +3,8 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-return array(
-	'ctrl' => array(
+return [
+	'ctrl' => [
 		'title'	=> 'LLL:EXT:fku_agenda/Resources/Private/Language/locallang_db.xlf:tx_fkuagenda_domain_model_category',
 		'label' => 'title',
 		'tstamp' => 'tstamp',
@@ -15,113 +15,83 @@ return array(
 		'versioningWS' => TRUE,
 
 		'delete' => 'deleted',
-		'enablecolumns' => array(
-			'disabled' => 'hidden',
-			'starttime' => 'starttime',
-			'endtime' => 'endtime',
-		),
+		'enablecolumns' => [
+			'disabled' => 'hidden'
+		],
 		'searchFields' => 'title,acronym,duration,details_pid',
 		'iconfile' => 'EXT:fku_agenda/Resources/Public/Icons/tx_fkuagenda_domain_model_category.gif'
-	),
-	'interface' => array(
+	],
+	'interface' => [
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, hide_in_list, title, acronym, duration, details_pid',
-	),
-	'types' => array(
-		'1' => array('showitem' => '--palette--;;hideOptions, title, acronym, duration, details_pid, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,starttime, endtime'),
-	),
-	'palettes' => array(
-		'hideOptions' => array('showitem' => 'hidden, hide_in_list'),
-	),
-	'columns' => array(
-		'hidden' => array(
+	],
+	'types' => [
+		'1' => ['showitem' => '--palette--;;hideOptions, title, acronym, duration, details_pid'],
+	],
+	'palettes' => [
+		'hideOptions' => ['showitem' => 'hidden, hide_in_list'],
+	],
+	'columns' => [
+		'hidden' => [
 			'exclude' => 1,
-			'label' => 'LLL:EXT:LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
-			'config' => array(
+			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
+			'config' => [
 				'type' => 'check',
-			),
-		),
-		'starttime' => array(
-			'exclude' => 1,
-			'label' => 'LLL:EXT:LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
-			'config' => array(
-				'type' => 'input',
-				'renderType' => 'inputDateTime',
-				'eval' => 'datetime',
-				'checkbox' => 0,
-				'default' => 0,
-				'range' => array(
-					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				),
-			),
-		),
-		'endtime' => array(
-			'exclude' => 1,
-			'label' => 'LLL:EXT:LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
-			'config' => array(
-				'type' => 'input',
-				'renderType' => 'inputDateTime',
-				'eval' => 'datetime',
-				'checkbox' => 0,
-				'default' => 0,
-				'range' => array(
-					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				),
-			),
-		),
-		'title' => array(
+			],
+		],
+		'title' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:fku_agenda/Resources/Private/Language/locallang_db.xlf:tx_fkuagenda_domain_model_category.title',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'trim,required'
-			),
-		),
-		'acronym' => array(
+			],
+		],
+		'acronym' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:fku_agenda/Resources/Private/Language/locallang_db.xlf:tx_fkuagenda_domain_model_category.acronym',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 10,
 				'eval' => 'trim,required'
-			),
-		),
-		'duration' => array(
+			],
+		],
+		'duration' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:fku_agenda/Resources/Private/Language/locallang_db.xlf:tx_fkuagenda_domain_model_category.duration',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 5,
 				'eval' => 'int'
-			),
-		),
-		'details_pid' => array(
+			],
+		],
+		'details_pid' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:fku_agenda/Resources/Private/Language/locallang_db.xlf:tx_fkuagenda_domain_model_category.details_pid',
-			'config' => array(
+			'config' => [
 				'type' => 'group',
 				'internal_type' => 'db',
 				'allowed' => 'pages',
 				'maxitems' => 1,
 				'size' => 1,
-				'sgguestOptions' => array(
-					'default' => array(
+				'sgguestOptions' => [
+					'default' => [
 						'searchWholePhrase' => 1
-					),
-					'pages' => array(
+					],
+					'pages' => [
 						'searchCondition' => 'doktype = 1'
-					)
-				)
-			)
-		),
-		'hide_in_list' => array(
+					]
+				]
+			]
+		],
+		'hide_in_list' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:fku_agenda/Resources/Private/Language/locallang_db.xlf:tx_fkuagenda_domain_model_category.hide_in_list',
-			'config' => array(
+			'config' => [
 				'type' => 'check',
-			),
-		),
-	),
-);
+			],
+		],
+	],
+];
 
 ?>

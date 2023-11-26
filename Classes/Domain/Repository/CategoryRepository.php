@@ -57,7 +57,7 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	*/
 	public function findForList() {
 		$query = $this->createQuery();
-		$result = $query->matching($query->equals('hideInList',0))->execute();
+		$result = $query->matching($query->equals('hideInList',0))->setOrderings(['acronym' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING])->execute();
 		return $result;
 	}
 

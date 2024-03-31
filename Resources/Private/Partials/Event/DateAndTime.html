@@ -20,15 +20,30 @@
 		</f:if>
 	</f:then>
 	<f:else>
-		<f:if condition="{event.today}">
-			<f:then>Heute um</f:then>
+		<f:if condition="{event.severalDays}">
+			<f:then>
+				<agenda:ifWithinMonth startDate="{event.eventStart}" endDate="{event.eventEnd}">
+					<f:then>
+						<f:format.date format="j.">{event.eventStart}</f:format.date> &ndash; <f:format.date format="j.">{event.eventEnd}</f:format.date> {event.eventStartMonth}{extra}
+					</f:then>
+					<f:else>
+						<f:format.date format="j.n.">{event.eventStart}</f:format.date> 
+						&ndash; <f:format.date format="j.n.">{event.eventEnd}</f:format.date>
+					</f:else>
+				</agenda:ifWithinMonth>
+			</f:then>
 			<f:else>
-				<f:if condition="{event.tomorrow}">
-					<f:then>Morgen um</f:then>
-					<f:else><f:format.date format="j.">{event.eventStart}</f:format.date> {event.eventStartMonth},</f:else>
-				</f:if>
+                <f:if condition="{event.today}">
+                    <f:then>Heute um</f:then>
+                    <f:else>
+                        <f:if condition="{event.tomorrow}">
+                            <f:then>Morgen um</f:then>
+                            <f:else><f:format.date format="j.">{event.eventStart}</f:format.date> {event.eventStartMonth},</f:else>
+                        </f:if>
+                    </f:else>
+                </f:if>
+                <f:format.date format="G.i">{event.eventStart}</f:format.date><f:if condition="{event.eventEndTimeFormat}">&ndash;<f:format.date format="G.i">{event.eventEnd}</f:format.date></f:if> Uhr{extra}
 			</f:else>
 		</f:if>
-		<f:format.date format="G.i">{event.eventStart}</f:format.date><f:if condition="{event.eventEndTimeFormat}">&ndash;<f:format.date format="G.i">{event.eventEnd}</f:format.date></f:if> Uhr{extra}
 	</f:else>
 </f:if>

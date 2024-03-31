@@ -3,13 +3,20 @@
 
 <f:if condition="{settings.textBefore}"><f:format.html>{settings.textBefore}</f:format.html></f:if>
 
-<f:for each="{events}" as="event">
-    <h3><f:render partial="Event/DateAndTime" arguments="{event:event}" /></h3>
-    <h4><f:render partial="Event/TitleWithLink" arguments="{event:event,title:event.descriptionFirstLine,settings:settings}" /></h4>
-    <f:format.nl2br>{event.descriptionRest}</f:format.nl2br>
-    <f:render partial="Event/Attachments" arguments="{event:event}" />
-    <hr />
-</f:for>
+<f:if condition="{events}">
+	<f:then>
+        <f:for each="{events}" as="event">
+            <h3><f:render partial="Event/DateAndTime" arguments="{event:event}" /></h3>
+            <h4><f:render partial="Event/TitleWithLink" arguments="{event:event,title:event.descriptionFirstLine,settings:settings}" /></h4>
+            <f:format.nl2br>{event.descriptionRest}</f:format.nl2br>
+            <f:render partial="Event/Attachments" arguments="{event:event}" />
+            <hr />
+        </f:for>
+    </f:then>
+    <f:else>
+    	<p>In der Agenda stehen zurzeit keine Anlass-Daten.</p>
+    </f:else>
+</f:if>
 
 <f:if condition="{settings.showCategoryMonthListLink}">
 	<p>Weitere Daten in der <f:link.action action="listMonth" pluginName="Month" arguments="{category:settings.showCategory}" pageUid="{settings.pageID.month}">Agenda</f:link.action></p>

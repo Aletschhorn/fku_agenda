@@ -8,19 +8,7 @@
 
 	<f:comment> LAYOUT FÜR FKU AKTUELL </f:comment>
 	<f:then>
-		<h1>Monatsprogramm FKU aktuell {monatsnamen.{month}} {year}</h1>
-
 		<div class="row">
-			<div class="col-sm-9 col-12">
-                <ul class="nav nav-pills mb-4">
-                    <li role="presentation">
-                        <f:link.action action="listMonth" arguments="{month:month,year:year}" additionalAttributes="{title:'Zur normalen Monatsansicht'}">
-                        	<svg class="icon-md" width="32" height="32" fill="currentColor"><use xlink:href="fileadmin/icon/glyphicons-basic-223-chevron-left.svg#glyphicons-basic"/></svg>
-							Normalansicht
-                        </f:link.action>
-                    </li>
-                </ul>
-			</div>
 			<div class="col-sm-3 col-12 d-xl-none">
             	<f:render partial="Pagination/PaginationYear" arguments="{pagination:pagination}" />
 			</div>
